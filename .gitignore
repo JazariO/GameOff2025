@@ -97,3 +97,38 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+
+# Ignore probuilder settings as these should be on a per-user basis.
+ProjectSettings/Packages/com.unity.probuilder/Settings.json
+
+#### ---------- START FMOD IGNORE ---------- ####
+
+# Never ignore DLLs in the FMOD subfolder.
+!/[Aa]ssets/Plugins/FMOD/**/lib/*
+
+# Don't ignore images and gizmos used by FMOD in the Unity Editor.
+!/[Aa]ssets/Gizmos/FMOD/*
+!/[Aa]ssets/Editor Default Resources/FMOD/*
+
+# Ignore bank files in the StreamingAssets folder.
+/[Aa]ssets/StreamingAssets/**/*.bank
+/[Aa]ssets/StreamingAssets/**/*.bank.meta
+
+# Log files can be ignored.
+fmod_editor.log
+
+# Ignore FMOD studio user cache
+# fmod~/.cache/** #uncomment this to remove fmod~/.cache/ in the future
+
+# Ignore FMOD studio unsaved changes
+fmod~/.unsaved/**
+
+# NOTE(Jazz): Ignore FMOD studio direct builds because storing banks here creates a bank duplication. 
+# Bank files being built from the fmod studio layer should instead be directed to fmod~/../fmod_banks/Desktop/*
+# so that both fmod and unity can externally point to the same banks folder in the root directory.
+
+# Ignore FMOD studio direct build cache 
+fmod~/Build/**
+
+#### ---------- END FMOD IGNORE ---------- ####
