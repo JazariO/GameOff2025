@@ -16,3 +16,5 @@ To prevent these merge conflicts, we can use Unity's [prefab workflow](https://d
 Now open the prefab asset file directly, you'll be taken to an 'in-context' mode called a prefab stage where you can begin making changes within the scene. From here you can add, remove, and change GameObjects from the Hierarchy Window without worrying about changes affecting the scene file. These changes affect all prefab instances and do not mark the scene file as dirty, so you can commit and push these changes to Git without worrying about merge conflicts.  
 
 ## Art Guidelines
+- Low poly art style similar to Deep Rock Galactic.
+- De-saturated colours similar to the Dangenong Ranges; lots of greens, earthy colours such as browns, reds and yellows.
