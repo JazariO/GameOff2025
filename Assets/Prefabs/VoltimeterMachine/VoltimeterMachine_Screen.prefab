@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 661223664614851290}
   - component: {fileID: 5109320443158834689}
   - component: {fileID: 777414448772548675}
+  - component: {fileID: 4657302712432919451}
   m_Layer: 0
   m_Name: VoltimeterMachine_Grid
   m_TagString: Untagged
@@ -118,3 +119,15 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4657302712432919451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6845146301493709075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e180055fe725704aa69e133f71d1fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
