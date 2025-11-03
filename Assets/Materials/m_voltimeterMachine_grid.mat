@@ -28,15 +28,7 @@ Material:
         m_Texture: {fileID: 2800000, guid: fec730c4138c05141b608a0b7ddfce91, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _NoiseTexture:
-        m_Texture: {fileID: 2800000, guid: fac465733fb05ce42b1a8763b0ec803a, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _NosieTexture:
-        m_Texture: {fileID: 2800000, guid: fac465733fb05ce42b1a8763b0ec803a, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Texture2D:
         m_Texture: {fileID: 2800000, guid: fac465733fb05ce42b1a8763b0ec803a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -54,21 +46,20 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amplitude: 0.16
-    - _BorderThickness: 0.53
-    - _Float: 0.15
-    - _Frequency: 0.8
-    - _GridOpacity: 0.035
-    - _GridScale: 6.9
-    - _LineThickness: 2.48
-    - _OffsetAmp: 7.83
-    - _OffsetFallOff: 0.1
-    - _OffsetTime: 0.19
+    - _Amplitude: 0.252
+    - _BorderThickness: 0.506
+    - _Frequency: 0.191
+    - _GridOpacity: 0.06
+    - _GridScale: 4.74
+    - _LineThickness: 8.13
+    - _OffsetAmp: 1.04
+    - _OffsetFallOff: 0.45
+    - _OffsetTime: 0.65
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Speed: -0.57
+    - _Speed: 0.131
     m_Colors:
-    - _Color: {r: 0, g: 2, b: 1.1006594, a: 0}
+    - _Color: {r: 0, g: 1, b: 0.6277769, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &5302327639725737603
