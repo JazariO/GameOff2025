@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4581136558875437472}
+  - component: {fileID: 2783058101779178726}
+  - component: {fileID: 5539886836467764370}
   m_Layer: 0
   m_Name: Input_System
   m_TagString: Untagged
@@ -31,3 +33,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2783058101779178726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2710520805611771041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b7e69d237b1eb84986f6b948bce4eb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveInput: {fileID: 11400000, guid: b9a14014567c88845875c569c87425b0, type: 2}
+  lookInput: {fileID: 11400000, guid: db4df985bd210084382b33eb15e3430f, type: 2}
+  crouchInput: {fileID: 11400000, guid: f19eb329149bed447bb3a32e7f8bdc44, type: 2}
+  sprintInput: {fileID: 11400000, guid: 9b64984919f05ab4ebba6b8dfab21889, type: 2}
+  jumpInput: {fileID: 11400000, guid: 15665d558701c2441a1b504c57979cc2, type: 2}
+  interactInput: {fileID: 11400000, guid: 1abc14435d74e6649a7a72b75e12997a, type: 2}
+  OnPauseInputEvent: {fileID: 11400000, guid: 250e1ddbeef17184ea4ed3f547fb3043, type: 2}
+  OnQuickLoadInputEvent: {fileID: 0}
+  OnQuickSaveInputEvent: {fileID: 0}
+  actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  playerInput: {fileID: 5539886836467764370}
+  InputControlScheme: {fileID: 0}
+--- !u!114 &5539886836467764370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2710520805611771041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
