@@ -48,16 +48,21 @@ Material:
     m_Floats:
     - _Amplitude: 0.252
     - _BorderThickness: 0.506
+    - _DeltaTime: 3.63
+    - _DropAmplitude: 1.27
+    - _DropFallOff: 0.36
+    - _DropTime: 0
     - _Frequency: 0.191
     - _GridOpacity: 0.06
     - _GridScale: 4.74
-    - _LineThickness: 8.13
-    - _OffsetAmp: 1.04
-    - _OffsetFallOff: 0.45
-    - _OffsetTime: 0.65
+    - _IncreaseReading: 0
+    - _LineThickness: 9.32
+    - _OffsetAmp: 1.16
+    - _OffsetFallOff: 0.13
+    - _OffsetTime: -0.64
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Speed: 0.131
+    - _Speed: 0.475
     m_Colors:
     - _Color: {r: 0, g: 1, b: 0.6277769, a: 0}
   m_BuildTextureStacks: []
