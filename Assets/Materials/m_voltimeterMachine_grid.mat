@@ -28,6 +28,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: fec730c4138c05141b608a0b7ddfce91, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Line:
+        m_Texture: {fileID: 8600000, guid: 8602c857011c85748a38f185b29b6355, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LineTexture:
+        m_Texture: {fileID: 8600000, guid: 8602c857011c85748a38f185b29b6355, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _NosieTexture:
         m_Texture: {fileID: 2800000, guid: fac465733fb05ce42b1a8763b0ec803a, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -47,14 +55,15 @@ Material:
     m_Ints: []
     m_Floats:
     - _Amplitude: 0.252
-    - _BorderThickness: 0.506
+    - _BorderThickness: 0.501
     - _DeltaTime: 3.63
-    - _DropAmplitude: 1.27
+    - _DropAmplitude: 0.96
     - _DropFallOff: 0.36
     - _DropTime: 0
     - _Frequency: 0.191
     - _GridOpacity: 0.06
     - _GridScale: 4.74
+    - _Height: 0
     - _IncreaseReading: 0
     - _LineThickness: 9.32
     - _OffsetAmp: 1.16
