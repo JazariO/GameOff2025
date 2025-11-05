@@ -360,6 +360,20 @@
         {
             "m_OutputSlot": {
                 "m_Node": {
+                    "m_Id": "804e723fb6f6411491450d6f442a3d65"
+                },
+                "m_SlotId": 2
+            },
+            "m_InputSlot": {
+                "m_Node": {
+                    "m_Id": "4ccae4daf1e64d13b8e9a213c8d5581c"
+                },
+                "m_SlotId": 0
+            }
+        },
+        {
+            "m_OutputSlot": {
+                "m_Node": {
                     "m_Id": "861f041523b44528a880a7fd2e86648c"
                 },
                 "m_SlotId": 1
@@ -451,20 +465,6 @@
             "m_InputSlot": {
                 "m_Node": {
                     "m_Id": "3448c5c984564a2e9248213d58cbcd01"
-                },
-                "m_SlotId": 0
-            }
-        },
-        {
-            "m_OutputSlot": {
-                "m_Node": {
-                    "m_Id": "8c2c9d8a95d04a23b335bd0cb46a33f7"
-                },
-                "m_SlotId": 5
-            },
-            "m_InputSlot": {
-                "m_Node": {
-                    "m_Id": "4ccae4daf1e64d13b8e9a213c8d5581c"
                 },
                 "m_SlotId": 0
             }
@@ -2109,8 +2109,8 @@
     "m_ObjectId": "536af032507748d891948a4ef55c86c0",
     "m_Title": "Border",
     "m_Position": {
-        "x": -1085.9998779296875,
-        "y": -295.00006103515627
+        "x": -1086.0,
+        "y": -295.0
     }
 }
 
@@ -3328,8 +3328,8 @@
     "m_ObjectId": "a3f8dd7434b243028df51efaad01aaae",
     "m_Title": "Grid",
     "m_Position": {
-        "x": -1353.9998779296875,
-        "y": -814.9999389648438
+        "x": -1354.0,
+        "y": -815.0000610351563
     }
 }
 
@@ -3387,8 +3387,8 @@
     "m_ObjectId": "a66d8ca9d06e4c0884116718bdf465ae",
     "m_Title": "UV",
     "m_Position": {
-        "x": -2058.999755859375,
-        "y": -813.0
+        "x": -2059.0,
+        "y": -813.0000610351563
     }
 }
 
@@ -4235,8 +4235,8 @@
     "m_ObjectId": "e89e023864db45bcb9be0df384b32294",
     "m_Title": "Line",
     "m_Position": {
-        "x": -431.0,
-        "y": -780.9998779296875
+        "x": -431.0000305175781,
+        "y": -781.0000610351563
     }
 }
 
