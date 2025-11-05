@@ -1,71 +1,57 @@
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
+using Proselyte.Sigils;
+using System;
 using UnityEngine;
 
 public class VoltimeterScreen : MonoBehaviour
 {
-    Renderer objRenderer;
-    MaterialPropertyBlock mpb;
-
-    float dropTime;
-    float totalTime;
-    float elapsedTime;
-    bool increaseReading;
-    public struct MaterialVariableIDs
+    [SerializeField] CustomRenderTexture voltimeterRenderTexture;
+    [Serializable] public struct MaterialVariableIDs
     {
-        internal int deltaTimeID;
-        internal int dropTimeID;
-        internal int speedID;
-        internal int increaseReadingID;
+        internal int powerAmountID;
+        internal int releaseID;
     }
     MaterialVariableIDs matVarIDs;
 
+    [Serializable] public struct RuntimeVariables
+    {
+        public float powerChangeTime;
+        internal float elapsedTime;
+        internal float newPowerAmount;
+    }
+    [SerializeField] RuntimeVariables runtimeVariables;
 
+    [Serializable] public struct GameEventData
+    {
+        public GameEvent onReset;
+    }
+    [SerializeField] GameEventData gameEventData;
     private void Awake()
     {
-        matVarIDs.dropTimeID = Shader.PropertyToID("_DropTime");
-        matVarIDs.speedID = Shader.PropertyToID("_Speed");
-        matVarIDs.deltaTimeID = Shader.PropertyToID("_DeltaTime");
-        matVarIDs.increaseReadingID = Shader.PropertyToID("_IncreaseReading");
-        mpb = new MaterialPropertyBlock();
-        objRenderer = GetComponent<Renderer>();
+        matVarIDs.powerAmountID = Shader.PropertyToID("_PowerAmount");
     }
-
-    private void Start()
-    {
-        mpb.SetFloat(matVarIDs.dropTimeID, 0.0f);
-        objRenderer.SetPropertyBlock(mpb);
-
-        float speed = objRenderer.sharedMaterial.GetFloat("_Speed");
-        dropTime = 16.0f * speed;
-    }
-
     private void Update()
     {
-        totalTime += Time.deltaTime;
-        mpb.SetFloat(matVarIDs.deltaTimeID, totalTime);
-        objRenderer.SetPropertyBlock(mpb);
-
-        if (Input.GetKeyDown(KeyCode.V) && elapsedTime == 0.0f)
+        if (Input.GetKeyDown(KeyCode.V) && runtimeVariables.elapsedTime == 0.0f)
         {
-            increaseReading = increaseReading ? false : true;
-            mpb.SetFloat(matVarIDs.increaseReadingID, increaseReading ? 1.0f : 0.0f);
-            ChangingVoltimeterReading(increaseReading).Forget();
+            runtimeVariables.newPowerAmount = UnityEngine.Random.Range(0.0f, 1.0f);
+            ChangingVoltimeterReading(runtimeVariables.newPowerAmount).Forget();
         }
     }
 
-    private async UniTaskVoid ChangingVoltimeterReading(bool increase)
+    private async UniTaskVoid ChangingVoltimeterReading(float changeAmount)
     {
-        while (elapsedTime < dropTime)
+        float startPowerAmount = voltimeterRenderTexture.material.GetFloat(matVarIDs.powerAmountID);
+
+        while (runtimeVariables.elapsedTime < runtimeVariables.powerChangeTime)
         {
-            elapsedTime += Time.deltaTime;
-            float t = elapsedTime / dropTime;
-            if (increase) t = 1.0f - t;
-            mpb.SetFloat(matVarIDs.dropTimeID, t);
-            objRenderer.SetPropertyBlock(mpb);
+            runtimeVariables.elapsedTime += Time.deltaTime;
+            float t = runtimeVariables.elapsedTime / runtimeVariables.powerChangeTime;
+            float curPowerAmount = Mathf.Lerp(startPowerAmount, changeAmount, t);
+            voltimeterRenderTexture.material.SetFloat(matVarIDs.powerAmountID, curPowerAmount);
             await UniTask.Yield();
         }
-
-        elapsedTime = 0.0f;
+        runtimeVariables.elapsedTime = 0.0f;
     }
 }

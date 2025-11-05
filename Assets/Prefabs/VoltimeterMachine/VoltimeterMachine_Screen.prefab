@@ -131,3 +131,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e180055fe725704aa69e133f71d1fe2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  voltimeterRenderTexture: {fileID: 8600000, guid: 8602c857011c85748a38f185b29b6355, type: 2}
+  runtimeVariables:
+    powerChangeTime: 0.1
+  gameEventData:
+    onReset: {fileID: 0}
