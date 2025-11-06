@@ -55,14 +55,14 @@ Material:
     m_Ints: []
     m_Floats:
     - _Amplitude: 0.252
-    - _BorderThickness: 0.501
+    - _BorderThickness: 0.503
     - _DeltaTime: 3.63
     - _DropAmplitude: 0.96
     - _DropFallOff: 0.36
     - _DropTime: 0
     - _Frequency: 0.191
     - _GridOpacity: 0.06
-    - _GridScale: 4.74
+    - _GridScale: 5.04
     - _Height: 0
     - _IncreaseReading: 0
     - _LineThickness: 9.32
