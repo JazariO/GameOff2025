@@ -26,6 +26,7 @@ public class PowercableSolver : MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(PowercableSolver))]
 public class PowercableSolverEditor : Editor
 {
@@ -41,3 +42,4 @@ public class PowercableSolverEditor : Editor
         }
     }
 }
+#endif
