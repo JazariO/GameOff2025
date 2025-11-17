@@ -7134,9 +7134,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5460635539458929222}
     m_Modifications:
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5777110951427211595, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_Name
       value: Powerpole_Cable
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7151,24 +7167,8 @@ PrefabInstance:
       value: 0.20900035
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.70710677
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071069
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.000000029802319
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.0000001490116
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -7196,9 +7196,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5460635539458929222}
     m_Modifications:
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5777110951427211595, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_Name
       value: Powerpole_Cable (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7213,24 +7237,8 @@ PrefabInstance:
       value: 0.209
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.70710677
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071069
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.000000029802319
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.0000001490116
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -7258,9 +7266,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5460635539458929222}
     m_Modifications:
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5777110951427211595, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_Name
       value: Powerpole_Cable (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7275,24 +7307,8 @@ PrefabInstance:
       value: 0.209
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.70710677
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071069
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.000000029802319
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.0000001490116
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -7320,9 +7336,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5460635539458929222}
     m_Modifications:
+    - target: {fileID: 1968232940652143340, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1968232940652143340, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1968232940652143340, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Center.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Center.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Extent.x
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Extent.y
+      value: 0.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 1984662427912055761, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_AABB.m_Extent.z
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5777110951427211595, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_Name
       value: Powerpole_Cable (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -7337,24 +7389,8 @@ PrefabInstance:
       value: 0.209
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.70710677
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071069
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.000000029802319
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.0000001490116
-      objectReference: {fileID: 0}
-    - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7804587269012728789, guid: b8fafc14435618e4eb865da6352c9ea9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

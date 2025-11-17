@@ -12,12 +12,18 @@ public class PowercableSolver : MonoBehaviour
 
     public void Solve()
     {
+        // Store endpoint's world position
+        Vector3 endpointWorldPos = endpointTF.position;
+
         // Set rotation
         startpointTF.LookAt(endpointTF);
 
         // Calculate distance and scale to fit
         float scalar = Vector3.Distance(startpointTF.position, endpointTF.position);
         startpointTF.localScale = new Vector3(1,1, scalar);
+
+        // Restore endpoint's world position
+        endpointTF.position = endpointWorldPos;
 
         Bounds bounds = skinnedMeshRenderer.localBounds;
         bounds.center = new Vector3(0, 0, 0.5f);
@@ -28,18 +34,25 @@ public class PowercableSolver : MonoBehaviour
 
 #if UNITY_EDITOR
 [CustomEditor(typeof(PowercableSolver))]
+[CanEditMultipleObjects]
 public class PowercableSolverEditor : Editor
 {
     public override void OnInspectorGUI()
     {
         base.OnInspectorGUI();
 
-        PowercableSolver powercableSolver = (PowercableSolver)target;
-
         if(GUILayout.Button("Solve"))
         {
-            powercableSolver.Solve();
+            foreach(Object obj in targets)
+            {
+                PowercableSolver solver = obj as PowercableSolver;
+                if(solver != null)
+                {
+                    solver.Solve();
+                }
+            }
         }
     }
 }
+
 #endif
