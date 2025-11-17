@@ -70,3 +70,4 @@ MonoBehaviour:
   passEventOrder: 0
   settings:
     gridScale: 2
+    thermalGradient: {fileID: 2800000, guid: 4cf7552b9ff7aeb44ab0b0a2ddaf7aa5, type: 3}

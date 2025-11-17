@@ -30,3 +30,6 @@ MonoBehaviour:
   gridScale:
     m_OverrideState: 1
     m_Value: 1
+  thermalGradient:
+    m_OverrideState: 1
+    m_Value: {fileID: 2800000, guid: 4cf7552b9ff7aeb44ab0b0a2ddaf7aa5, type: 3}

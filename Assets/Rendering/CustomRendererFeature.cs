@@ -23,12 +23,11 @@ public class CustomRendererFeature : ScriptableRendererFeature
 
         customRenderFeaturePass = new CustomRenderFeaturePass(this);
         customRenderFeaturePass.renderPassEvent = (RenderPassEvent)((int)renderPassEvent + passEventOrder);
-
     }
 
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
-        if (renderingData.cameraData.cameraType != CameraType.Game) return;
+        if (renderingData.cameraData.camera.tag != "ThermalCamera") return;
         if (customRenderFeatureRTHandle == null || !isInitialized)
         {
             if (customRenderFeatureRTHandle != null)
@@ -66,7 +65,8 @@ public class CustomRenderFeaturePass : ScriptableRenderPass
 {
     private readonly CustomRendererFeature rendererFeature;
 
-    private static readonly int gridScaleID = Shader.PropertyToID("_GridScale");
+    static int gridScaleID = Shader.PropertyToID("_GridScale");
+    static int thermalGradientID = Shader.PropertyToID("_ThermalGradient");
 
     public CustomRenderFeaturePass(CustomRendererFeature rendererFeature) => this.rendererFeature = rendererFeature;
 
@@ -87,12 +87,12 @@ public class CustomRenderFeaturePass : ScriptableRenderPass
 
         TextureHandle backBufferData = resourceData.backBufferColor;
         TextureDesc textDesc = resourceData.cameraColor.GetDescriptor(renderGraph); //getting exact same texture descriptor from the render graphs frame data
-        textDesc.name = "CrunchyDitherGridTexture";
+        textDesc.name = "CustomTexture";
         textDesc.clearBuffer = false;
         TextureHandle dest = renderGraph.CreateTexture(textDesc); //copy of the source camera color for the shader to alter and replace the original camera color
 
         PassData passData;
-        using(var builder = renderGraph.AddRasterRenderPass<PassData>("Crunchy Dither Render Pass", out passData)) //passData is a copy of DitherWorldGridPassData
+        using(var builder = renderGraph.AddRasterRenderPass<PassData>("Custom Render Pass", out passData)) //passData is a copy of DitherWorldGridPassData
         {
             passData.targetColor = dest;
             passData.sourceColor = resourceData.cameraColor;
@@ -111,11 +111,10 @@ public class CustomRenderFeaturePass : ScriptableRenderPass
     private static void ExecutePass(PassData passData, RasterGraphContext ctx)
     {
         float gridScale = passData.vc.active && passData.vc.gridScale.overrideState ? passData.vc.gridScale.value : passData.defaultSettings.gridScale;
-
+        Texture thermalGradient = passData.vc.active && passData.vc.thermalGradient.overrideState ? passData.vc.thermalGradient.value : passData.defaultSettings.thermalGradient;
         passData.material.SetFloat(gridScaleID, gridScale);
-
+        passData.material.SetTexture(thermalGradientID, thermalGradient);
         Blitter.BlitTexture(ctx.cmd, passData.sourceColor, Vector2.one, passData.material, 0); // execute shader pass
-
     }
 }
 
@@ -124,6 +123,7 @@ public class RenderFeatureSettings
 {
     [Header("General")]
     [Range(1,4)] public int gridScale = 2;
+    public Texture2D thermalGradient;
 }
 
 
