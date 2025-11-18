@@ -277,7 +277,7 @@
                 "m_Node": {
                     "m_Id": "174f3b92c9de44c7aa405139d7f989c6"
                 },
-                "m_SlotId": 0
+                "m_SlotId": 1
             }
         },
         {
@@ -375,7 +375,7 @@
                 "m_Node": {
                     "m_Id": "174f3b92c9de44c7aa405139d7f989c6"
                 },
-                "m_SlotId": 1
+                "m_SlotId": 0
             }
         },
         {
@@ -1709,8 +1709,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1427.0,
-            "y": -1240.0,
+            "x": -1427.0001220703125,
+            "y": -1243.0,
             "width": 119.0,
             "height": 149.0
         }
@@ -1924,8 +1924,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1427.0,
-            "y": -1848.0001220703125,
+            "x": -1462.0,
+            "y": -1884.0,
             "width": 208.0,
             "height": 302.0
         }
@@ -3327,10 +3327,10 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": 0.05000000074505806,
-    "m_FloatType": 0,
+    "m_FloatType": 1,
     "m_RangeValues": {
         "x": 0.0,
-        "y": 1.0
+        "y": 0.10000000149011612
     }
 }
 
@@ -3762,8 +3762,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2199.0,
-            "y": -1707.0,
+            "x": -1970.0,
+            "y": -1633.0,
             "width": 116.0,
             "height": 34.0
         }
@@ -4077,7 +4077,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "80afd35fc70949b589dc25700566ab2d",
     "m_Id": 0,
-    "m_DisplayName": "DotDistance",
+    "m_DisplayName": "SignalDistance",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -5656,10 +5656,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2029.0,
-            "y": -1582.0,
-            "width": 208.0,
-            "height": 302.0
+            "x": -1854.0,
+            "y": -1673.0,
+            "width": 126.0,
+            "height": 118.0
         }
     },
     "m_Slots": [
@@ -5679,7 +5679,7 @@
         "x"
     ],
     "m_Precision": 0,
-    "m_PreviewExpanded": true,
+    "m_PreviewExpanded": false,
     "m_DismissedVersion": 0,
     "m_PreviewMode": 0,
     "m_CustomColors": {
@@ -6084,10 +6084,10 @@
     "m_Guid": {
         "m_GuidSerialized": "1ab7ac11-8a6d-4b46-88a3-3657a3a31ae6"
     },
-    "m_Name": "DotDistance",
+    "m_Name": "SignalDistance",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "DotDistance",
-    "m_DefaultReferenceName": "_DotDistance",
+    "m_RefNameGeneratedByDisplayName": "SignalDistance",
+    "m_DefaultReferenceName": "_SignalDistance",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -6420,8 +6420,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -729.0,
-            "y": -1184.0,
+            "x": -550.0,
+            "y": -1250.0,
             "width": 150.0,
             "height": 34.0
         }
@@ -6594,8 +6594,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -2338.0,
-            "y": -1608.0,
+            "x": -1993.0,
+            "y": -1599.0,
             "width": 139.0,
             "height": 34.0
         }
