@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddfee63f77df6e4409b87e303c725f5f, type: 3}
   m_Name: UserSettingsDataSO
   m_EditorClassIdentifier: 
-  crouchIsToggle: 0
+  lookSensitivity: 0.333
