@@ -5,5 +5,5 @@ public class PlayerInputDataSO : ScriptableObject
 {
     public Vector2 input_look;
     public bool input_interact;
-    public bool input_view_change;
+    public bool input_change_view;
 }
