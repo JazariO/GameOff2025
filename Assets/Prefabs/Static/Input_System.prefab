@@ -45,12 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7e69d237b1eb84986f6b948bce4eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveInput: {fileID: 11400000, guid: b9a14014567c88845875c569c87425b0, type: 2}
-  lookInput: {fileID: 11400000, guid: db4df985bd210084382b33eb15e3430f, type: 2}
-  crouchInput: {fileID: 11400000, guid: f19eb329149bed447bb3a32e7f8bdc44, type: 2}
-  sprintInput: {fileID: 11400000, guid: 9b64984919f05ab4ebba6b8dfab21889, type: 2}
-  jumpInput: {fileID: 11400000, guid: 15665d558701c2441a1b504c57979cc2, type: 2}
-  interactInput: {fileID: 11400000, guid: 1abc14435d74e6649a7a72b75e12997a, type: 2}
+  playerInputDataSO: {fileID: 11400000, guid: a233b8574bde2da46bf039c0fa54eb78, type: 2}
   OnPauseInputEvent: {fileID: 11400000, guid: 250e1ddbeef17184ea4ed3f547fb3043, type: 2}
   OnQuickLoadInputEvent: {fileID: 0}
   OnQuickSaveInputEvent: {fileID: 0}
