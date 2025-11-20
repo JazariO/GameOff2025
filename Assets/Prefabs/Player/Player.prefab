@@ -211,6 +211,7 @@ GameObject:
   m_Component:
   - component: {fileID: 737173565450920181}
   - component: {fileID: 318396453328118563}
+  - component: {fileID: 3212202292065836928}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -252,11 +253,24 @@ MonoBehaviour:
   interactionLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  interactInput:
-    UseConstant: 0
-    ConstantValue: 0
-    Variable: {fileID: 11400000, guid: 1abc14435d74e6649a7a72b75e12997a, type: 2}
+  playerInputDataSO: {fileID: 0}
   interactText: {fileID: 11400000, guid: decded590974cdf4581b3525f9e81a7e, type: 2}
   cursorFilled: {fileID: 11400000, guid: 4ba3d1abd1ffcac46a06374b4cde2ea8, type: 2}
   OnHoverEnterInteractable: {fileID: 11400000, guid: 4cf6990986a33134691ac4395bc2cfb4, type: 2}
   OnHoverExitInteractable: {fileID: 11400000, guid: 425d5ab74b403d742b0c3832def3fc8f, type: 2}
+--- !u!114 &3212202292065836928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593371575905443524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fff2c48683275124d84046a996d3fb3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerInputData: {fileID: 11400000, guid: a233b8574bde2da46bf039c0fa54eb78, type: 2}
+  userSettingsData: {fileID: 11400000, guid: 42ed0dc446564954a9d7ca980afc1936, type: 2}
+  cameraPivot: {fileID: 3462146972327361731}
+  cameraTransform: {fileID: 5547151952569531959}
