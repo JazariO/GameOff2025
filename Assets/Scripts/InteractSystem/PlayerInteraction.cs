@@ -10,7 +10,7 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] LayerMask interactionLayerMask;
 
     [Header("Incoming References")]
-    [SerializeField] BoolReference interactInput;
+    [SerializeField] PlayerInputDataSO playerInputDataSO;
 
     [Header("Outgoing Variables")]
     [SerializeField] StringVariable interactText;
@@ -23,7 +23,6 @@ public class PlayerInteraction : MonoBehaviour
     private Renderer currentRenderer;
     private uint currentRenderingLayer;
     private bool init;
-    private Interactable previousInteractable;
 
     private void Awake()
     {
@@ -33,7 +32,7 @@ public class PlayerInteraction : MonoBehaviour
     void Update()
     {
         CheckInteraction();
-        if(interactInput.Value && currentInteractable != null)
+        if(playerInputDataSO.input_interact && currentInteractable != null)
         {
             Debug.Log("Attempting Interaction");
             currentInteractable.Interact();
@@ -77,7 +76,6 @@ public class PlayerInteraction : MonoBehaviour
     {
         hit = true;
         currentInteractable = newInteractable;
-        previousInteractable = newInteractable;
 
         interactText.value = currentInteractable.displayMessage;
         cursorFilled.value = true;
@@ -115,6 +113,5 @@ public class PlayerInteraction : MonoBehaviour
         hit = false;
         init = false;
         currentInteractable = null;
-        previousInteractable = null;
     }
 }

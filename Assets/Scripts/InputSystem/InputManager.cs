@@ -8,12 +8,9 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
     private static bool isActive;
 
     [Header("Outgoing Variables")]
-    [SerializeField] Vector2Variable moveInput;
-    [SerializeField] Vector2Variable lookInput;
-    [SerializeField] BoolVariable crouchInput;
-    [SerializeField] BoolVariable sprintInput;
-    [SerializeField] BoolVariable jumpInput;
-    [SerializeField] BoolVariable interactInput;
+
+
+    [SerializeField] PlayerInputDataSO playerInputDataSO;
 
     [Header("Game Events SEND")]
     [SerializeField] GameEvent OnPauseInputEvent;
@@ -35,16 +32,10 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
     private InputActionMap _uiMap;
 
     private InputAction _moveAction;
-    private InputAction _crouchAction;
-    private InputAction _sprintAction;
-    private InputAction _jumpAction;
     private InputAction _interactAction;
     private InputAction _lookAction;
     private InputAction _pauseAction;
-    //private InputAction _quickLoadAction;
-    //private InputAction _quickSaveAction;
-    //private InputAction _flashlightAction;
-    //private InputAction _cameraAction;
+    private InputAction _changeViewAction;
 
     private void Awake()
     {
@@ -53,12 +44,9 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
         else
             return;
 
-        moveInput.value = Vector2.zero;
-        lookInput.value = Vector2.zero;
-        crouchInput.value = false;
-        sprintInput.value = false;
-        jumpInput.value = false;
-        interactInput.value = false;
+        playerInputDataSO.input_look = Vector2.zero;
+        playerInputDataSO.input_interact = false;
+        playerInputDataSO.input_change_view = false;
 
         // Init action maps
         _playerMap = playerInput.actions.FindActionMap("Player", true);
@@ -66,16 +54,10 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
 
         // Init player actions
         _moveAction = playerInput.actions["Move"];
-        _crouchAction = playerInput.actions["Crouch"];
-        _sprintAction = playerInput.actions["Sprint"];
-        _jumpAction = playerInput.actions["Jump"];
-        //_flashlightAction = playerInput.actions["Flashlight"];
-        //_cameraAction = playerInput.actions["Camera"];
         _interactAction = playerInput.actions["Interact"];
         _lookAction = playerInput.actions["Look"];
         _pauseAction = playerInput.actions["Pause"];
-        //_quickLoadAction = playerInput.actions["QuickLoad"];
-        //_quickSaveAction = playerInput.actions["QuickSave"];
+        _changeViewAction = playerInput.actions["ChangeView"];
     }
 
     private void OnEnable()
@@ -132,25 +114,14 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
 
     private void Update()
     {
-        moveInput.value = _moveAction.ReadValue<Vector2>();
-        crouchInput.value = _crouchAction.ReadValue<float>() > 0;
-        sprintInput.value = _sprintAction.ReadValue<float>() > 0;
-        jumpInput.value = _jumpAction.ReadValue<float>() > 0;
-        lookInput.value = _lookAction.ReadValue<Vector2>();
-        interactInput.value = _interactAction.WasPressedThisFrame();
+        playerInputDataSO.input_look = _lookAction.ReadValue<Vector2>();
+        playerInputDataSO.input_interact = _interactAction.WasPressedThisFrame();
+        playerInputDataSO.input_change_view = _changeViewAction.WasPressedThisFrame();
         if(_pauseAction.WasPressedThisFrame() && !_pauseHandledThisFrame)
         {
             OnPauseInputEvent.Raise();
             _pauseHandledThisFrame = true;
         }
-        //if(_quickLoadAction.WasPressedThisFrame())
-        //{
-        //    OnQuickLoadInputEvent.Raise();
-        //}
-        //if(_quickSaveAction.WasPressedThisFrame())
-        //{
-        //    OnQuickSaveInputEvent.Raise();
-        //}
     }
 
     public void OnPlayGameEventRaised()
@@ -208,7 +179,8 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
 
     private void LateUpdate()
     {
-        interactInput.value = false;
+        playerInputDataSO.input_interact = false;
+        playerInputDataSO.input_change_view = false;
         _pauseHandledThisFrame = false;
     }
 
