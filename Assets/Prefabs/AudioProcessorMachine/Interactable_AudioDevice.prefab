@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6824053277017297675}
+  - component: {fileID: 325040642420937538}
   m_Layer: 0
   m_Name: Interactable_AudioDevice
   m_TagString: Untagged
@@ -32,6 +33,23 @@ Transform:
   - {fileID: 7929885323756990773}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &325040642420937538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3676634966670029635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f03f7a63dd5328c45a6f4402d98b470e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settings: {fileID: 11400000, guid: 4056572d524c92e45af13e9423a4f922, type: 2}
+  polarCoordRenderer: {fileID: 1907301854232743776}
+  distanceCoordRenderer: {fileID: 7046723903413012194}
+  polarCoordKnob: {fileID: 7968783323001022086}
+  distanceCoordKnob: {fileID: 2724782237782963265}
 --- !u!1001 &7603806585250584286
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84,6 +102,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
       objectReference: {fileID: 2100000, guid: ca0477a91e8d6704881aecc2af734618, type: 2}
+    - target: {fileID: -5438359321966611424, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
+      propertyPath: m_Name
+      value: audioDeviceKnob_polarCoord
+      objectReference: {fileID: 0}
     - target: {fileID: -4160340976685234743, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -112,17 +134,49 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 5a406ec5d27a1c14994f824b11337d22, type: 2}
+    - target: {fileID: 598094482768711740, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0521981613d31b84f8fa4f62573b2efe, type: 2}
     - target: {fileID: 919132149155446097, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
       propertyPath: m_Name
       value: AudioDevice
+      objectReference: {fileID: 0}
+    - target: {fileID: 4233487333953481435, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
+      propertyPath: m_Name
+      value: distanceCoordinatesScreen
+      objectReference: {fileID: 0}
+    - target: {fileID: 7191449989660592755, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
+      propertyPath: m_Name
+      value: audioDeviceKnob_distanceCoord
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
+--- !u!23 &1907301854232743776 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -865186857164498498, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
+  m_PrefabInstance: {fileID: 7603806585250584286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2724782237782963265 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -3722653011223518561, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
+  m_PrefabInstance: {fileID: 7603806585250584286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &7046723903413012194 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 598094482768711740, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
+  m_PrefabInstance: {fileID: 7603806585250584286}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7929885323756990773 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
+  m_PrefabInstance: {fileID: 7603806585250584286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7968783323001022086 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8714205814397898664, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
   m_PrefabInstance: {fileID: 7603806585250584286}
   m_PrefabAsset: {fileID: 0}

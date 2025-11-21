@@ -67,6 +67,7 @@ Material:
     - _GridOpacity: 0.237
     - _GridScale: 1.92
     - _Height: 0
+    - _HemisphereSize: 0.223
     - _HemisphereThickness: 0.972
     - _IncreaseReading: 0
     - _LineAngle: -15.16
@@ -78,7 +79,7 @@ Material:
     - _QueueOffset: 0
     - _RingAmount: 6.3
     - _RingThickness: 1.77
-    - _SignalDistance: 0.37
+    - _SignalDistance: 0.46885556
     - _Speed: 0.475
     - _ThermalMode: 0
     - _ThermalValue: 0.748
