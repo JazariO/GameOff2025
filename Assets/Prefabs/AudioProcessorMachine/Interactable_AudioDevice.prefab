@@ -48,6 +48,8 @@ MonoBehaviour:
   settings: {fileID: 11400000, guid: 4056572d524c92e45af13e9423a4f922, type: 2}
   polarCoordRenderer: {fileID: 1907301854232743776}
   distanceCoordRenderer: {fileID: 7046723903413012194}
+  signalRenderer: {fileID: 4240811823509402646}
+  signalRenderTexture: {fileID: 8600000, guid: 8602c857011c85748a38f185b29b6355, type: 2}
   polarCoordKnob: {fileID: 7968783323001022086}
   distanceCoordKnob: {fileID: 2724782237782963265}
 --- !u!1001 &7603806585250584286
@@ -163,6 +165,11 @@ MeshRenderer:
 --- !u!4 &2724782237782963265 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -3722653011223518561, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
+  m_PrefabInstance: {fileID: 7603806585250584286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &4240811823509402646 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -3216618865950793016, guid: 9a021def879cc5de68ecf3fd74b476f3, type: 3}
   m_PrefabInstance: {fileID: 7603806585250584286}
   m_PrefabAsset: {fileID: 0}
 --- !u!23 &7046723903413012194 stripped

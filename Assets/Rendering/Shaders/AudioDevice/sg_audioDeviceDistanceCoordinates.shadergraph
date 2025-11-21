@@ -513,7 +513,7 @@
                 "m_Node": {
                     "m_Id": "43c4ad60af734735a5e9efbea186438e"
                 },
-                "m_SlotId": 1
+                "m_SlotId": 0
             }
         },
         {
@@ -863,7 +863,7 @@
                 "m_Node": {
                     "m_Id": "43c4ad60af734735a5e9efbea186438e"
                 },
-                "m_SlotId": 0
+                "m_SlotId": 1
             }
         },
         {
@@ -5247,8 +5247,8 @@
     "m_ObjectId": "c7542311dc864a0c9ea859d5ececbf35",
     "m_Title": "Half Pi",
     "m_Position": {
-        "x": -2917.000244140625,
-        "y": -1501.0001220703125
+        "x": -2917.0,
+        "y": -1501.0
     }
 }
 

@@ -62,7 +62,7 @@ Material:
     - _DropTime: 0
     - _Frequency: 0.191
     - _GridOpacity: 0.237
-    - _GridScale: 1.92
+    - _GridScale: 2
     - _Height: 0
     - _IncreaseReading: 0
     - _LineThickness: 9.32
@@ -71,11 +71,14 @@ Material:
     - _OffsetTime: -0.64
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _RecordLength: 0
     - _Speed: 0.475
     - _ThermalMode: 0
     - _ThermalValue: 0.748
     m_Colors:
     - _Color: {r: 0, g: 1, b: 0.62745094, a: 0}
+    - _DefaultColor: {r: 0, g: 1, b: 0.6277769, a: 0}
+    - _RecordColor: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &5302327639725737603
