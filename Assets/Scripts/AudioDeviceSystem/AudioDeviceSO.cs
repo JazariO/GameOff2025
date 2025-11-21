@@ -5,5 +5,4 @@ using UnityEngine;
 public class AudioDeviceSO : ScriptableObject
 {
     [Range(0,1)] public float sensitivity = 0.5f;
-    public Texture2D savedSignalTexture;
 }

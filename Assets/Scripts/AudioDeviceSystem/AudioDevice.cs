@@ -63,8 +63,11 @@ public class AudioDevice : MonoBehaviour
         if (Input.GetKey(KeyCode.A))
         {
             stats.signalAngle = (stats.signalAngle + (Time.deltaTime * settings.sensitivity)) % 1;
+
             polarCoordMPB.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
             polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
+
+            signalRenTexMat.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
 
             float zEulerAngle = (1 - stats.signalAngle) * 360;
             polarCoordKnob.eulerAngles = new Vector3(polarCoordKnob.eulerAngles.x, polarCoordKnob.eulerAngles.y, zEulerAngle);
@@ -73,8 +76,11 @@ public class AudioDevice : MonoBehaviour
         if (Input.GetKey(KeyCode.D))
         {
             stats.signalAngle = (stats.signalAngle - (Time.deltaTime * settings.sensitivity)) % 1;
+
             polarCoordMPB.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
             polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
+
+            signalRenTexMat.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
 
 
             float zEulerAngle = (1 - stats.signalAngle) * 360;
@@ -84,10 +90,14 @@ public class AudioDevice : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             stats.signalDistance = Mathf.Clamp01(stats.signalDistance + (Time.deltaTime * settings.sensitivity * 2));
+
             polarCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
             distanceCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
+
             polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
             distanceCoordRenderer.SetPropertyBlock(distanceCoordMPB);
+
+            signalRenTexMat.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
 
 
             float zEulerAngle = stats.signalDistance * 360;
@@ -97,11 +107,14 @@ public class AudioDevice : MonoBehaviour
         if (Input.GetKey(KeyCode.S))
         {
             stats.signalDistance = Mathf.Clamp01(stats.signalDistance - (Time.deltaTime * settings.sensitivity * 2));
+
             polarCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
             distanceCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
+
             polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
             distanceCoordRenderer.SetPropertyBlock(distanceCoordMPB);
 
+            signalRenTexMat.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
 
             float zEulerAngle = stats.signalDistance * 360;
             distanceCoordKnob.eulerAngles = new Vector3(distanceCoordKnob.eulerAngles.x, distanceCoordKnob.eulerAngles.y, zEulerAngle);
