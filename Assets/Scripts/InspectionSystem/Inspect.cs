@@ -15,92 +15,58 @@ public class Inspect : MonoBehaviour
     [SerializeField] float transitionTime = 1f;
 
     [Space]
-    [SerializeField] GameEvent OnInspectionStartEvent;
-    [SerializeField] GameEvent OnInspectEvent;
-    [SerializeField] GameEvent OnInspectionEndEvent;
-    [SerializeField] BoolReference interactInput;
-
-    private Camera _playerCamera;
+    [SerializeField] GameEvent OnInspectEngage;
+    [SerializeField] GameEvent OnInspect;
+    [SerializeField] GameEvent OnInspectDisengage;
+    [SerializeField] PlayerInputDataSO playerInputDataSO;
+    [SerializeField] PlayerSaveDataSO playerSaveDataSO;
 
     private Vector3 _cameraStandPos;
     private Quaternion _cameraStandRot;
 
     private bool _transitioning;
-    private bool _playerSittingState;
 
-    private static Inspect _currentInspectScript;
-
-    private void Update()
-    {
-        // NOTE(Jazz): Check for inspection disengage
-        if(//_playerController.IsInspecting &&
-            _currentInspectScript == this &&
-            interactInput.Value)
-        {
-            if(!_transitioning)
-            {
-                _transitioning = true;
-                StartCoroutine(SmoothStand());
-            }
-        }
-    }
     public void EngageInspection()
     {
         Interactable interactable = GetComponent<Interactable>();
         interactable.ClearDisplayMessage();
-        OnInspectionStartEvent.Raise();
+        OnInspectEngage.Raise();
 
-        //if(!_transitioning && FindPlayer() && !_playerController.IsInspecting)
+        if(!_transitioning)
         {
-            // Hide cursor reticle
-            //playerController.reticleImage.enabled = false; // HACK, no reticle yet
-
-            // Clear player stand prompt
-            //if(_playerController.IsSitting)
-            {
-                //playerController.standPromptTMP.text = string.Empty; // HACK, no stand prompt yet
-            }
-
             _transitioning = true;
-            _currentInspectScript = this;
 
             // Cache player camera position & rotation before inspecting.
-            _cameraStandPos = _playerCamera.transform.position;
-            _cameraStandRot = _playerCamera.transform.rotation;
+            _cameraStandPos = Camera.main.transform.position;
+            _cameraStandRot = Camera.main.transform.rotation;
 
             StartCoroutine(SmoothInspect());
         }
     }
 
+    public void DisengageInspection()
+    {
+        if(!_transitioning)
+        {
+            _transitioning = true;
+            StartCoroutine(SmoothStand());
+        }
+    }
+
     private IEnumerator SmoothInspect()
     {
-
-        // Disable player input controls.
-        //_cameraController.enabled = false;
-        //_playerController.canMove = false;
-
-        //// Set player controller sitting & inspecting state
-        //_playerSittingState = _playerController.IsSitting;
-        //_playerController.SetInspectionState(true);
+        playerSaveDataSO.isInspecting = true;
 
         float ctr = 0;
 
         while(ctr < transitionTime)
         {
             ctr += Time.deltaTime;
-
             float t = Mathf.SmoothStep(0, 1, ctr / transitionTime);
 
-            _playerCamera.transform.position = Vector3.Lerp(
-                _cameraStandPos,
-                inspectionTransform.
-                position,
-                t);
-
-            _playerCamera.transform.rotation = Quaternion.Lerp(
-                _cameraStandRot,
-                inspectionTransform.rotation,
-                t);
+            Camera.main.transform.SetPositionAndRotation(
+                Vector3.Lerp(_cameraStandPos, inspectionTransform.position, t), 
+                Quaternion.Lerp(_cameraStandRot, inspectionTransform.rotation, t));
 
             yield return null;
         }
@@ -110,21 +76,15 @@ public class Inspect : MonoBehaviour
 
     private void SetInspect()
     {
-        // Ensure camera is exactly at the inspection position and rotation
-        _playerCamera.transform.position = inspectionTransform.position;
-        _playerCamera.transform.rotation = inspectionTransform.rotation;
+        // Snap camera to position and rotation
+        Camera.main.transform.SetPositionAndRotation(inspectionTransform.position, inspectionTransform.rotation);
 
-        //_playerController.SetInspectionState(true);
         _transitioning = false;
-        OnInspectEvent.Raise();
+        OnInspect.Raise();
     }
 
     private IEnumerator SmoothStand()
     {
-        // Disable player input controls.
-        //_cameraController.enabled = false;
-        //_playerController.canMove = false;
-
         float ctr = 0;
         while(ctr < transitionTime)
         {
@@ -132,14 +92,9 @@ public class Inspect : MonoBehaviour
 
             float t = Mathf.SmoothStep(0, 1, ctr / transitionTime);
 
-            _playerCamera.transform.position = Vector3.Lerp(
-                inspectionTransform.position,
-                _cameraStandPos,
-                t);
-            _playerCamera.transform.rotation = Quaternion.Lerp(
-                inspectionTransform.rotation,
-                _cameraStandRot,
-                t);
+            Camera.main.transform.SetPositionAndRotation(
+                Vector3.Lerp(inspectionTransform.position, _cameraStandPos, t), 
+                Quaternion.Lerp(inspectionTransform.rotation, _cameraStandRot, t));
 
             yield return null;
         }
@@ -153,32 +108,11 @@ public class Inspect : MonoBehaviour
         interactable.ClearDisplayMessage();
 
         // Ensure camera is exactly at the standing position and rotation
-        _playerCamera.transform.position = _cameraStandPos;
-        _playerCamera.transform.rotation = _cameraStandRot;
-
-        // Return player controller input control.
-        //_cameraController.enabled = true;
-        //_playerController.canMove = true;
-
-        //// Return player controller sitting state.
-        //_playerController.SetSittingState(_playerSittingState);
-
-        //// Set player controller inspection off.
-        //_playerController.SetInspectionState(false);
+        Camera.main.transform.SetPositionAndRotation(_cameraStandPos, _cameraStandRot);
+        playerSaveDataSO.isInspecting = false;
 
         _transitioning = false;
-        _currentInspectScript = null;
-        OnInspectionEndEvent.Raise();
-
-        // Show cursor reticle
-        //playerController.reticleImage.enabled = true;
-
-        //if(_playerController.IsSitting)
-        //{
-        //    // Player was sitting before starting the inspection, return the prompt to stand
-        //    //playerController.standPromptTMP.text = playerController.standPrompt;
-        //    _playerController.SetSittingState(true);
-        //}
+        OnInspectDisengage.Raise();
     }
 
 #if UNITY_EDITOR
@@ -186,6 +120,7 @@ public class Inspect : MonoBehaviour
     {
         if(inspectionTransform != null)
         {
+            // Draw inspection pivot axes
             Gizmos.color = Color.cyan;
             Gizmos.DrawLine(
                 inspectionTransform.position,

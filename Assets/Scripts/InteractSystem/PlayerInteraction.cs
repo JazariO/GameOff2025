@@ -4,13 +4,15 @@ using Proselyte.Sigils;
 public class PlayerInteraction : MonoBehaviour
 {
     public float playerReach = 2f;
-    Interactable currentInteractable;
     [HideInInspector] public bool hit = false;
     [HideInInspector] public GameObject currentObject;
     [SerializeField] LayerMask interactionLayerMask;
 
+    [SerializeField] PlayerController playerController;
+
     [Header("Incoming References")]
     [SerializeField] PlayerInputDataSO playerInputDataSO;
+    [SerializeField] PlayerSaveDataSO playerSaveDataSO;
 
     [Header("Outgoing Variables")]
     [SerializeField] StringVariable interactText;
@@ -20,6 +22,10 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField] GameEvent OnHoverEnterInteractable;
     [SerializeField] GameEvent OnHoverExitInteractable;
 
+    [SerializeField] bool debug_mode;
+
+    private Interactable currentInteractable;
+    private Inspect currentInspectComponent;
     private Renderer currentRenderer;
     private uint currentRenderingLayer;
     private bool init;
@@ -27,16 +33,48 @@ public class PlayerInteraction : MonoBehaviour
     private void Awake()
     {
         interactText.value = string.Empty;
+        playerSaveDataSO.isInspecting = false;
     }
 
     void Update()
     {
-        CheckInteraction();
-        if(playerInputDataSO.input_interact && currentInteractable != null)
+        // While inspecting, check for disengage input
+        if(playerSaveDataSO.isInspecting)
         {
-            Debug.Log("Attempting Interaction");
-            currentInteractable.Interact();
+            if(playerInputDataSO.input_change_view && currentInspectComponent != null)
+            {
+                currentInspectComponent.DisengageInspection();
+            }
+            return;
         }
+
+        CheckInteraction();
+
+        if(playerInputDataSO.input_change_view && currentInteractable != null)
+        {
+            currentInteractable.Interact();
+
+            currentInspectComponent = currentInteractable.GetComponent<Inspect>();
+            if(currentInspectComponent != null)
+            {
+                currentInspectComponent.EngageInspection();
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if(!debug_mode) return;
+        Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
+
+        if(currentInteractable != null)
+        {
+            Gizmos.color = Color.green;
+        } else
+        {
+            Gizmos.color = Color.red;
+        }
+        Gizmos.DrawRay(ray);
     }
 
     void CheckInteraction()

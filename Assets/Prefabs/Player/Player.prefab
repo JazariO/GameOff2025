@@ -129,7 +129,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.1
+  near clip plane: 0.05
   far clip plane: 1000
   field of view: 85
   orthographic: 0
@@ -247,17 +247,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c261d2f1cdcf74ebb6d689c280a81c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerReach: 2
+  playerReach: 4
   hit: 0
   currentObject: {fileID: 0}
   interactionLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  playerInputDataSO: {fileID: 0}
+  playerController: {fileID: 3212202292065836928}
+  playerInputDataSO: {fileID: 11400000, guid: a233b8574bde2da46bf039c0fa54eb78, type: 2}
+  playerSaveDataSO: {fileID: 11400000, guid: cf84229b9df33ba4cab48531a4c9b67c, type: 2}
   interactText: {fileID: 11400000, guid: decded590974cdf4581b3525f9e81a7e, type: 2}
   cursorFilled: {fileID: 11400000, guid: 4ba3d1abd1ffcac46a06374b4cde2ea8, type: 2}
   OnHoverEnterInteractable: {fileID: 11400000, guid: 4cf6990986a33134691ac4395bc2cfb4, type: 2}
   OnHoverExitInteractable: {fileID: 11400000, guid: 425d5ab74b403d742b0c3832def3fc8f, type: 2}
+  debug_mode: 0
 --- !u!114 &3212202292065836928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,3 +277,5 @@ MonoBehaviour:
   userSettingsData: {fileID: 11400000, guid: 42ed0dc446564954a9d7ca980afc1936, type: 2}
   cameraPivot: {fileID: 3462146972327361731}
   cameraTransform: {fileID: 5547151952569531959}
+  OnInspectEngage: {fileID: 11400000, guid: 94dbea74697f6604b8aaa064bf493123, type: 2}
+  OnInspectDisengage: {fileID: 11400000, guid: 9f5c9d036570c9b479244ebd20a26658, type: 2}
