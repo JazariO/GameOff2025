@@ -9,7 +9,6 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
 
     [Header("Outgoing Variables")]
 
-
     [SerializeField] PlayerInputDataSO playerInputDataSO;
 
     [Header("Game Events SEND")]
@@ -44,6 +43,8 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
         else
             return;
 
+        // Set initial defaults
+        playerInputDataSO.input_move = Vector2.zero;
         playerInputDataSO.input_look = Vector2.zero;
         playerInputDataSO.input_interact = false;
         playerInputDataSO.input_change_view = false;
@@ -114,6 +115,7 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
 
     private void Update()
     {
+        playerInputDataSO.input_move = _moveAction.ReadValue<Vector2>();
         playerInputDataSO.input_look = _lookAction.ReadValue<Vector2>();
         playerInputDataSO.input_interact = _interactAction.WasPressedThisFrame();
         playerInputDataSO.input_change_view = _changeViewAction.WasPressedThisFrame();
@@ -180,7 +182,6 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
 
     private void LateUpdate()
     {
-        playerInputDataSO.input_interact = false;
         _pauseHandledThisFrame = false;
     }
 
