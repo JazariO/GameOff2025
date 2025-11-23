@@ -117,6 +117,7 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
         playerInputDataSO.input_look = _lookAction.ReadValue<Vector2>();
         playerInputDataSO.input_interact = _interactAction.WasPressedThisFrame();
         playerInputDataSO.input_change_view = _changeViewAction.WasPressedThisFrame();
+
         if(_pauseAction.WasPressedThisFrame() && !_pauseHandledThisFrame)
         {
             OnPauseInputEvent.Raise();
@@ -180,7 +181,6 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
     private void LateUpdate()
     {
         playerInputDataSO.input_interact = false;
-        playerInputDataSO.input_change_view = false;
         _pauseHandledThisFrame = false;
     }
 
