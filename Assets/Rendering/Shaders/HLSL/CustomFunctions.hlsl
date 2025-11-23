@@ -13,6 +13,5 @@ void BirdMap_float(float2 worldPos, out float o)
         float2 birdPos = isEven ? _BirdPositions[pairIndex].xy : _BirdPositions[pairIndex].zw;
 
         o += 1 - (saturate(length(worldPos - birdPos) * 20));
-
     }
 }
