@@ -1,4 +1,3 @@
-using Proselyte.Sigils;
 using System;
 using UnityEngine;
 
@@ -6,9 +5,12 @@ public class PhotographicCameraController : MonoBehaviour
 {
     [SerializeField] PlayerInputDataSO playerInputDataSO;
     [SerializeField] UserSettingsDataSO userSettingsDataSO;
+    [SerializeField] PlayerSaveDataSO playerSaveDataSO;
 
     [SerializeField] Transform photographicCameraPivotTransform;
     [SerializeField] Camera photographicCameraComponent;
+
+    [SerializeField] RenderTexture photographic_camera_viewport_rendertexture;
 
     [Serializable] struct CameraControls
     {
@@ -52,29 +54,59 @@ public class PhotographicCameraController : MonoBehaviour
         if(engaged)
         {
             // Photographic Zoom
-            zoom -= playerInputDataSO.input_move.y * cameraControls.zoom_fov_speed;
-            zoom = Mathf.Clamp(zoom, cameraControls.zoom_fov_limit_min, cameraControls.zoom_fov_limit_max);
+            {
+                zoom -= playerInputDataSO.input_move.y * cameraControls.zoom_fov_speed;
+                zoom = Mathf.Clamp(zoom, cameraControls.zoom_fov_limit_min, cameraControls.zoom_fov_limit_max);
 
-            // Normalize zoom percentage between 0-1
-            zoom_percent = Mathf.InverseLerp(zoom, cameraControls.zoom_fov_limit_min, cameraControls.zoom_fov_limit_max);
-            
-            // Apply sqrt remap
-            zoom_percent = Mathf.Sqrt(zoom_percent);
-            
-            // Clamp to custom speed scale range
-            zoom_percent = Mathf.Clamp(zoom_percent, cameraControls.zoom_fov_speed_scale_min, cameraControls.zoom_fov_speed_scale_max);
+                // Normalize zoom percentage between 0-1
+                zoom_percent = Mathf.InverseLerp(zoom, cameraControls.zoom_fov_limit_min, cameraControls.zoom_fov_limit_max);
 
-            photographicCameraComponent.fieldOfView = zoom;
+                // Apply sqrt remap
+                zoom_percent = Mathf.Sqrt(zoom_percent);
 
-            // Rotate photographic camera using player move input
-            // Accumulate player input
-            pitch -= playerInputDataSO.input_look.y * userSettingsDataSO.lookSensitivity * zoom_percent;
-            yaw += playerInputDataSO.input_look.x * userSettingsDataSO.lookSensitivity * zoom_percent;
+                // Clamp to custom speed scale range
+                zoom_percent = Mathf.Clamp(zoom_percent, cameraControls.zoom_fov_speed_scale_min, cameraControls.zoom_fov_speed_scale_max);
 
-            pitch = Mathf.Clamp(pitch, cameraControls.rotation_limit_pitch_min, cameraControls.rotation_limit_pitch_max);
-            yaw = Mathf.Clamp(yaw, cameraControls.rotation_limit_yaw_min, cameraControls.rotation_limit_yaw_max);
+                photographicCameraComponent.fieldOfView = zoom;
+            }
 
-            photographicCameraPivotTransform.localRotation = Quaternion.Euler(pitch, yaw, 0);
+
+            // Rotate photographic camera with input
+            {
+                // Accumulate player input
+                pitch -= playerInputDataSO.input_look.y * userSettingsDataSO.lookSensitivity * zoom_percent;
+                yaw += playerInputDataSO.input_look.x * userSettingsDataSO.lookSensitivity * zoom_percent;
+
+                pitch = Mathf.Clamp(pitch, cameraControls.rotation_limit_pitch_min, cameraControls.rotation_limit_pitch_max);
+                yaw = Mathf.Clamp(yaw, cameraControls.rotation_limit_yaw_min, cameraControls.rotation_limit_yaw_max);
+
+                photographicCameraPivotTransform.localRotation = Quaternion.Euler(pitch, yaw, 0);
+            }
+
+            // Take photo with photographic camera
+            if(playerInputDataSO.input_interact)
+            {
+                // Set the active RenderTexture
+                RenderTexture.active = photographic_camera_viewport_rendertexture;
+
+                // Generate texture2D to hold the rendertexture data
+                Texture2D texture2D = new Texture2D
+                (
+                    photographic_camera_viewport_rendertexture.width,
+                    photographic_camera_viewport_rendertexture.height,
+                    TextureFormat.ARGB32,
+                    false
+                );
+
+                texture2D.ReadPixels(new Rect(0, 0, photographic_camera_viewport_rendertexture.width, photographic_camera_viewport_rendertexture.height), 0, 0);
+                texture2D.Apply();
+
+                // Reset active rendertexture to avoid breaking rendering
+                RenderTexture.active = null;
+
+                byte[] photoBytes = texture2D.EncodeToPNG();
+                playerSaveDataSO.photos_taken_bytes.Add(photoBytes);
+            }
         }
     }
 

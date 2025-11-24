@@ -46,8 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerInputDataSO: {fileID: 11400000, guid: a233b8574bde2da46bf039c0fa54eb78, type: 2}
   userSettingsDataSO: {fileID: 11400000, guid: 42ed0dc446564954a9d7ca980afc1936, type: 2}
+  playerSaveDataSO: {fileID: 11400000, guid: cf84229b9df33ba4cab48531a4c9b67c, type: 2}
   photographicCameraPivotTransform: {fileID: 8681311413862658886}
   photographicCameraComponent: {fileID: 959815831565990564}
+  photographic_camera_viewport_rendertexture: {fileID: 8400000, guid: e165a8216c7e1fb4086ea42db756c7cd, type: 2}
   cameraControls:
     rotation_limit_pitch_min: -30
     rotation_limit_pitch_max: 30
