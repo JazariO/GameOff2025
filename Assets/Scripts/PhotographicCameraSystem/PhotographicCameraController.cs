@@ -1,3 +1,4 @@
+using Proselyte.Sigils;
 using System;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ public class PhotographicCameraController : MonoBehaviour
     [SerializeField] PlayerInputDataSO playerInputDataSO;
     [SerializeField] UserSettingsDataSO userSettingsDataSO;
     [SerializeField] PlayerSaveDataSO playerSaveDataSO;
+
+    [SerializeField] GameEvent OnInspectDisengageBegin;
 
     [SerializeField] Transform photographicCameraPivotTransform;
     [SerializeField] Camera photographicCameraComponent;
@@ -33,6 +36,16 @@ public class PhotographicCameraController : MonoBehaviour
     private float zoom;
     private float zoom_percent;
 
+    private void OnEnable()
+    {
+        OnInspectDisengageBegin.RegisterListener(HandleInspectDisengage);
+    }
+
+    private void OnDisable()
+    {
+        OnInspectDisengageBegin.UnregisterListener(HandleInspectDisengage);
+    }
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -45,11 +58,11 @@ public class PhotographicCameraController : MonoBehaviour
 
     private void Update()
     {
-        if(playerInputDataSO.input_change_view && engaged)
-        {
-            HandleInspectDisengage();
-            return;
-        }
+        //if(playerInputDataSO.input_change_view && engaged)
+        //{
+        //    HandleInspectDisengage();
+        //    return;
+        //}
 
         if(engaged)
         {
@@ -83,30 +96,30 @@ public class PhotographicCameraController : MonoBehaviour
                 photographicCameraPivotTransform.localRotation = Quaternion.Euler(pitch, yaw, 0);
             }
 
-            // Take photo with photographic camera
-            if(playerInputDataSO.input_interact)
-            {
-                // Set the active RenderTexture
-                RenderTexture.active = photographic_camera_viewport_rendertexture;
+            //// Take photo with photographic camera
+            //if(playerInputDataSO.input_interact)
+            //{
+            //    // Set the active RenderTexture
+            //    RenderTexture.active = photographic_camera_viewport_rendertexture;
 
-                // Generate texture2D to hold the rendertexture data
-                Texture2D texture2D = new Texture2D
-                (
-                    photographic_camera_viewport_rendertexture.width,
-                    photographic_camera_viewport_rendertexture.height,
-                    TextureFormat.ARGB32,
-                    false
-                );
+            //    // Generate texture2D to hold the rendertexture data
+            //    Texture2D texture2D = new Texture2D
+            //    (
+            //        photographic_camera_viewport_rendertexture.width,
+            //        photographic_camera_viewport_rendertexture.height,
+            //        TextureFormat.ARGB32,
+            //        false
+            //    );
 
-                texture2D.ReadPixels(new Rect(0, 0, photographic_camera_viewport_rendertexture.width, photographic_camera_viewport_rendertexture.height), 0, 0);
-                texture2D.Apply();
+            //    texture2D.ReadPixels(new Rect(0, 0, photographic_camera_viewport_rendertexture.width, photographic_camera_viewport_rendertexture.height), 0, 0);
+            //    texture2D.Apply();
 
-                // Reset active rendertexture to avoid breaking rendering
-                RenderTexture.active = null;
+            //    // Reset active rendertexture to avoid breaking rendering
+            //    RenderTexture.active = null;
 
-                byte[] photoBytes = texture2D.EncodeToPNG();
-                playerSaveDataSO.photos_taken_bytes.Add(photoBytes);
-            }
+            //    byte[] photoBytes = texture2D.EncodeToPNG();
+            //    playerSaveDataSO.photos_taken_bytes.Add(photoBytes);
+            //}
         }
     }
 
