@@ -15,22 +15,27 @@ public class Inspect : MonoBehaviour
     [SerializeField] float transitionTime = 1f;
 
     [Space]
-    [SerializeField] GameEvent OnInspectEngage;
-    [SerializeField] GameEvent OnInspect;
-    [SerializeField] GameEvent OnInspectDisengage;
+    [SerializeField] GameEvent OnInspectEngageBegin;
+    [SerializeField] GameEvent OnInspectEngageEnd;
+    [SerializeField] GameEvent OnInspectDisengageBegin;
+    [SerializeField] GameEvent OnInspectDisengageEnd;
     [SerializeField] PlayerInputDataSO playerInputDataSO;
     [SerializeField] PlayerSaveDataSO playerSaveDataSO;
 
     private Vector3 _cameraStandPos;
     private Quaternion _cameraStandRot;
+    private Transform _cameraParentPivot;
 
     private bool _transitioning;
 
     public void EngageInspection()
     {
+        // Cache camera parent transform before detaching
+        _cameraParentPivot = Camera.main.transform.parent;
+
         Interactable interactable = GetComponent<Interactable>();
         interactable.ClearDisplayMessage();
-        OnInspectEngage.Raise();
+        if(OnInspectEngageBegin != null) OnInspectEngageBegin.Raise();
 
         if(!_transitioning)
         {
@@ -49,6 +54,10 @@ public class Inspect : MonoBehaviour
         if(!_transitioning)
         {
             _transitioning = true;
+            if(OnInspectDisengageBegin != null) OnInspectDisengageBegin.Raise();
+            // Parent camera to its cached parent transform (likely the player controller, again)
+            Camera.main.transform.SetParent(_cameraParentPivot, true);
+
             StartCoroutine(SmoothStand());
         }
     }
@@ -79,8 +88,11 @@ public class Inspect : MonoBehaviour
         // Snap camera to position and rotation
         Camera.main.transform.SetPositionAndRotation(inspectionTransform.position, inspectionTransform.rotation);
 
+        // Parent camera to inspection pivot (for moving the camera relative to the inspection pivot)
+        Camera.main.transform.SetParent(inspectionTransform, true);
+
         _transitioning = false;
-        OnInspect.Raise();
+        if(OnInspectEngageEnd != null) OnInspectEngageEnd.Raise();
     }
 
     private IEnumerator SmoothStand()
@@ -112,7 +124,7 @@ public class Inspect : MonoBehaviour
         playerSaveDataSO.isInspecting = false;
 
         _transitioning = false;
-        OnInspectDisengage.Raise();
+        if(OnInspectDisengageEnd != null) OnInspectDisengageEnd.Raise();
     }
 
 #if UNITY_EDITOR
