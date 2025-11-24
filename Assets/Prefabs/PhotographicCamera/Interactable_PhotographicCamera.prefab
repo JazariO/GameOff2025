@@ -45,9 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInputDataSO: {fileID: 11400000, guid: a233b8574bde2da46bf039c0fa54eb78, type: 2}
-  OnInspectPhotographicCameraEngage: {fileID: 11400000, guid: 7aec72446d675254da7da7d02e68862d, type: 2}
-  OnInspectPhotographicCameraDisengage: {fileID: 11400000, guid: 1d36e45c33790114da840c112cc6f660, type: 2}
+  userSettingsDataSO: {fileID: 11400000, guid: 42ed0dc446564954a9d7ca980afc1936, type: 2}
   photographicCameraPivotTransform: {fileID: 8681311413862658886}
+  photographicCameraComponent: {fileID: 959815831565990564}
   cameraControls:
     rotation_limit_pitch_min: -30
     rotation_limit_pitch_max: 30
@@ -55,7 +55,9 @@ MonoBehaviour:
     rotation_limit_yaw_max: 60
     zoom_fov_limit_min: 2
     zoom_fov_limit_max: 65
-    zoom_fov_speed: 10
+    zoom_fov_speed: 0.2
+    zoom_fov_speed_scale_min: 0.1
+    zoom_fov_speed_scale_max: 0.9
 --- !u!1 &1293464752749069081
 GameObject:
   m_ObjectHideFlags: 0
@@ -4335,7 +4337,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2633
+  m_VersionIndex: 2672
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4499,6 +4501,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3472887451940962741}
+        m_TargetAssemblyTypeName: PhotographicCameraController, Assembly-CSharp
+        m_MethodName: HandleInspectEngage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1324395123983275775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4513,9 +4527,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inspectionTransform: {fileID: 5697058337485901036}
   transitionTime: 0.85
-  OnInspectEngage: {fileID: 11400000, guid: 94dbea74697f6604b8aaa064bf493123, type: 2}
-  OnInspect: {fileID: 11400000, guid: 7aec72446d675254da7da7d02e68862d, type: 2}
-  OnInspectDisengage: {fileID: 11400000, guid: 9f5c9d036570c9b479244ebd20a26658, type: 2}
+  OnInspectEngageBegin: {fileID: 11400000, guid: 94dbea74697f6604b8aaa064bf493123, type: 2}
+  OnInspectEngageEnd: {fileID: 11400000, guid: a1ee14d629c4cc34cbc5aeb4d59fc000, type: 2}
+  OnInspectDisengageBegin: {fileID: 11400000, guid: a187a4116f3432e45837d04aedc0e1e4, type: 2}
+  OnInspectDisengageEnd: {fileID: 11400000, guid: 9f5c9d036570c9b479244ebd20a26658, type: 2}
   playerInputDataSO: {fileID: 11400000, guid: a233b8574bde2da46bf039c0fa54eb78, type: 2}
   playerSaveDataSO: {fileID: 11400000, guid: cf84229b9df33ba4cab48531a4c9b67c, type: 2}
 --- !u!1 &2893886759877856960
@@ -7106,7 +7121,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1317
+  m_VersionIndex: 1356
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -7832,7 +7847,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2565
+  m_VersionIndex: 2604
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -9218,7 +9233,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2872
+  m_VersionIndex: 2911
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
