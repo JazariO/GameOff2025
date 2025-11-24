@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerSaveDataSO", menuName = "Save-Load System/Player Save Data SO")]
@@ -9,4 +10,6 @@ public class PlayerSaveDataSO : ScriptableObject
     public bool isCrouched;
     public bool wishStand;
     public bool isInspecting;
+
+    public List<byte[]> photos_taken_bytes = new List<byte[]>();
 }
