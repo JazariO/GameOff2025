@@ -160,7 +160,7 @@ public class AudioDevice : MonoBehaviour
         Graphics.CopyTexture(signalRenderTexture, recordedSignalRenTex);
         recordedSignalMaterial.SetTexture(materialIDs.recordedSignalTextureID, recordedSignalRenTex);
 
-        SaveSignalTexture(signalRenderTexture);
+        //SaveSignalTexture(signalRenderTexture);
     }
 
     private void SaveSignalTexture(RenderTexture rt)
