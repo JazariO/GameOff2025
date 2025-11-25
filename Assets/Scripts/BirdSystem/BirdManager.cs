@@ -28,7 +28,7 @@ public class BirdManager : MonoBehaviour
     private void Start()
     {
         Vector2 texSize = new Vector4(birdMapRenderTexture.width, birdMapRenderTexture.height);
-        for (int i = 0; i < positionData.normBirdPositions.Length; i++)
+        for (int i = 0; i < positionData.worldBirdPositions.Length; i++)
         {
             for (int j = 0; j < 2;  j++)
             {
