@@ -15,5 +15,5 @@ MonoBehaviour:
   tree: {fileID: 6909884667327836981, guid: 11d2d1e27072e5240abe81ef7c00baa3, type: 3}
   perchesPositions:
   - {x: -1.073, y: 21.347, z: -1.209}
-  - {x: 1.155, y: 22.833, z: 0.008}
+  - {x: 1.155, y: 22.985, z: -0.333}
   - {x: -0.694, y: 16.866, z: -2.543}
