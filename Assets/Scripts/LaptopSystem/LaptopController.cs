@@ -4,23 +4,24 @@ using UnityEngine.UI;
 
 public class LaptopController : MonoBehaviour
 {
-    [SerializeField] Image photoImage;
     [SerializeField] PlayerSaveDataSO playerSaveDataSO;
     [SerializeField] GameObject media_explorer_prefab_file_image;
+    [SerializeField] Transform media_explorer_panel_content_transform;
 
     [SerializeField] GameEvent OnPhotoTaken;
     [SerializeField] GameEvent OnInspectDisengageBegin;
 
     [SerializeField] RenderTexture photographic_camera_viewport_rendertexture;
 
+    private int photos_stored_count;
     private bool laptop_in_use;
 
-    private void OnEnable() 
-    { 
+    private void OnEnable()
+    {
         OnPhotoTaken.RegisterListener(HandlePhotoTaken);
         OnInspectDisengageBegin.RegisterListener(HandleInspectDisengage);
     }
-    private void OnDisable() 
+    private void OnDisable()
     {
         OnPhotoTaken.UnregisterListener(HandlePhotoTaken);
         OnInspectDisengageBegin.UnregisterListener(HandleInspectDisengage);
@@ -28,7 +29,10 @@ public class LaptopController : MonoBehaviour
 
     private void Update()
     {
-        
+        if(laptop_in_use)
+        {
+
+        }
     }
 
     public void HandlePhotoTaken()
@@ -36,22 +40,21 @@ public class LaptopController : MonoBehaviour
         // TODO(Jazz): add upload sound emanating from laptop when receiving photo data from photographic camera
 
 
+        // create new image prefab in the media explorer program
+        GameObject file_image_gameObject = Instantiate(media_explorer_prefab_file_image, media_explorer_panel_content_transform);
 
-        // create new image in the media explorer program
-        //Instantiate(media_explorer_prefab_file_image);
+        Image[] images = file_image_gameObject.GetComponentsInChildren<Image>();
+        if(images[1] == null) Debug.LogError("prefab missing image component for photo.");
 
         // convert byte data to photos for the images
         int width = photographic_camera_viewport_rendertexture.width;
         int height = photographic_camera_viewport_rendertexture.height;
         Texture2D texture = new Texture2D(width, height, TextureFormat.ARGB32, false);
-        texture.LoadImage(playerSaveDataSO.photos_taken_bytes[0]);
-        
+        texture.LoadImage(playerSaveDataSO.photo_taken_bytes);
 
+        // assign sprite to image component
         Sprite sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f));
-
-        photoImage.sprite = sprite;
-
-        // update all images in the media explorer view
+        images[1].sprite = sprite;
     }
 
     public void HandleInspectEngage()

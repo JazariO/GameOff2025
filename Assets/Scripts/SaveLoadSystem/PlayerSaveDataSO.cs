@@ -11,5 +11,5 @@ public class PlayerSaveDataSO : ScriptableObject
     public bool wishStand;
     public bool isInspecting;
 
-    public List<byte[]> photos_taken_bytes = new List<byte[]>();
+    public byte[] photo_taken_bytes;
 }
