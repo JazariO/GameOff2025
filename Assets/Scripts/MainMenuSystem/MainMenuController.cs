@@ -21,6 +21,12 @@ public class MainMenuController : MonoBehaviour
         OnInspectionDisengageEnd.UnregisterListener(HandleInspectionDisengage);
     }
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+
     public void HandleInspectionEngage()
     {
         first_person_cursor_image.enabled = false;
