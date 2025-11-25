@@ -5,7 +5,7 @@ using System.Collections.Generic;
 [CreateAssetMenu(fileName = "TreeSO", menuName = "Tree SO")]
 public class TreeSO : ScriptableObject
 {
-    [SerializeField] GameObject tree;
+    public GameObject tree;
     public Vector3[] perchesPositions;
 
 #if UNITY_EDITOR

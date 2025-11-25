@@ -40,6 +40,7 @@ public class AudioDevice : MonoBehaviour
         internal float signalDistance;
         internal float recordLength;
         internal float recordLengthTime;
+        internal bool recording;
         internal bool engaged;
     }
     public Stats stats;
@@ -62,6 +63,13 @@ public class AudioDevice : MonoBehaviour
         recordedSignalRenTex.Create();
     }
 
+    private void Start()
+    {
+        polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
+        distanceCoordRenderer.SetPropertyBlock(distanceCoordMPB);
+        stats.signalAngle = polarCoordRenderer.sharedMaterial.GetFloat(materialIDs.signalAngleID);
+        stats.signalDistance = distanceCoordRenderer.sharedMaterial.GetFloat(materialIDs.signalDistanceID);
+    }
     private void OnEnable()
     {
         OnInspectDisengageBegin.RegisterListener(HandleInspectDisengage);
@@ -75,12 +83,12 @@ public class AudioDevice : MonoBehaviour
     private void Update()
     {
 
-        if (stats.engaged)
+        if (stats.engaged && !stats.recording)
         {
 
             if (playerInputData.input_move.x != 0)
             {
-                stats.signalAngle = (stats.signalAngle + (Time.deltaTime * settings.sensitivity)) % 1;
+                stats.signalAngle = (stats.signalAngle - (Time.deltaTime * settings.sensitivity * playerInputData.input_move.x)) % 1;
 
                 polarCoordMPB.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
                 polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
@@ -91,23 +99,10 @@ public class AudioDevice : MonoBehaviour
                 polarCoordKnob.eulerAngles = new Vector3(polarCoordKnob.eulerAngles.x, polarCoordKnob.eulerAngles.y, zEulerAngle);
             }
 
-            if (playerInputData.input_move.x == 1)
+
+            if (playerInputData.input_move.y != 0)
             {
-                stats.signalAngle = (stats.signalAngle - (Time.deltaTime * settings.sensitivity)) % 1;
-
-                polarCoordMPB.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
-                polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
-
-                signalRenTexMat.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
-
-
-                float zEulerAngle = (1 - stats.signalAngle) * 360;
-                polarCoordKnob.eulerAngles = new Vector3(polarCoordKnob.eulerAngles.x, polarCoordKnob.eulerAngles.y, zEulerAngle);
-            }
-
-            if (playerInputData.input_move.y == 1)
-            {
-                stats.signalDistance = Mathf.Clamp01(stats.signalDistance + (Time.deltaTime * settings.sensitivity * 2));
+                stats.signalDistance = Mathf.Clamp01(stats.signalDistance + (Time.deltaTime * settings.sensitivity * 2 * playerInputData.input_move.y));
 
                 polarCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
                 distanceCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
@@ -117,22 +112,6 @@ public class AudioDevice : MonoBehaviour
 
                 signalRenTexMat.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
 
-
-                float zEulerAngle = stats.signalDistance * 360;
-                distanceCoordKnob.eulerAngles = new Vector3(distanceCoordKnob.eulerAngles.x, distanceCoordKnob.eulerAngles.y, zEulerAngle);
-            }
-
-            if (playerInputData.input_move.y == -1)
-            {
-                stats.signalDistance = Mathf.Clamp01(stats.signalDistance - (Time.deltaTime * settings.sensitivity * 2));
-
-                polarCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
-                distanceCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
-
-                polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
-                distanceCoordRenderer.SetPropertyBlock(distanceCoordMPB);
-
-                signalRenTexMat.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
 
                 float zEulerAngle = stats.signalDistance * 360;
                 distanceCoordKnob.eulerAngles = new Vector3(distanceCoordKnob.eulerAngles.x, distanceCoordKnob.eulerAngles.y, zEulerAngle);
@@ -147,6 +126,7 @@ public class AudioDevice : MonoBehaviour
 
     private async UniTaskVoid Record()
     {
+        stats.recording = true;
         stats.recordLength = 0.0f;
         stats.recordLengthTime = signalRenTexMat.GetFloat(materialIDs.signalHorizontalSpeedID);
         while(stats.recordLength < 1)
@@ -159,7 +139,7 @@ public class AudioDevice : MonoBehaviour
 
         Graphics.CopyTexture(signalRenderTexture, recordedSignalRenTex);
         recordedSignalMaterial.SetTexture(materialIDs.recordedSignalTextureID, recordedSignalRenTex);
-
+        stats.recording = false;
         //SaveSignalTexture(signalRenderTexture);
     }
 

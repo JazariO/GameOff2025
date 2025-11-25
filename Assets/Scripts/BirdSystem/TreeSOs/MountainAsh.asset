@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afce37676207cbc42b88cb1d2cbff578, type: 3}
-  m_Name: TreeSO
+  m_Name: MountainAsh
   m_EditorClassIdentifier: 
   tree: {fileID: 6909884667327836981, guid: 11d2d1e27072e5240abe81ef7c00baa3, type: 3}
   perchesPositions:
   - {x: -1.073, y: 21.347, z: -1.209}
-  - {x: 1.155, y: 22.833, z: 0.008}
+  - {x: 1.155, y: 22.985, z: -0.333}
   - {x: -0.694, y: 16.866, z: -2.543}
