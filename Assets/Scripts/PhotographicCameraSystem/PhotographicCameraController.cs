@@ -49,9 +49,6 @@ public class PhotographicCameraController : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         zoom = photographicCameraComponent.fieldOfView;
         zoom = Mathf.Clamp(zoom, cameraControls.zoom_fov_limit_min, cameraControls.zoom_fov_limit_max);
         photographicCameraComponent.fieldOfView = zoom;
@@ -97,6 +94,8 @@ public class PhotographicCameraController : MonoBehaviour
                 photographicCameraPivotTransform.localRotation = Quaternion.Euler(pitch, yaw, 0);
             }
 
+            // TODO(Jazz): add cooldown to photo capture, also add animations and sfx for taking a picture
+
             // Take photo with photographic camera
             if(playerInputDataSO.input_interact)
             {
@@ -119,7 +118,7 @@ public class PhotographicCameraController : MonoBehaviour
                 RenderTexture.active = null;
 
                 byte[] photoBytes = texture2D.EncodeToPNG();
-                playerSaveDataSO.photos_taken_bytes.Add(photoBytes);
+                playerSaveDataSO.photo_taken_bytes = photoBytes;
                 OnPhotoTaken.Raise();
             }
         }
