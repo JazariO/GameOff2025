@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using Proselyte.Sigils;
 using System;
 using System.IO;
 using UnityEngine;
@@ -6,7 +7,9 @@ using UnityEngine;
 public class AudioDevice : MonoBehaviour
 {
     [SerializeField] AudioDeviceSO settings;
+    [SerializeField] PlayerInputDataSO playerInputData;
 
+    [SerializeField] GameEvent OnInspectDisengageBegin;
     [SerializeField] Renderer polarCoordRenderer;
     [SerializeField] Renderer distanceCoordRenderer;
     [SerializeField] Renderer signalRenderer;
@@ -37,6 +40,7 @@ public class AudioDevice : MonoBehaviour
         internal float signalDistance;
         internal float recordLength;
         internal float recordLengthTime;
+        internal bool engaged;
     }
     public Stats stats;
 
@@ -58,71 +62,86 @@ public class AudioDevice : MonoBehaviour
         recordedSignalRenTex.Create();
     }
 
+    private void OnEnable()
+    {
+        OnInspectDisengageBegin.RegisterListener(HandleInspectDisengage);
+    }
+
+    private void OnDisable()
+    {
+        OnInspectDisengageBegin.UnregisterListener(HandleInspectDisengage);
+        
+    }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.A))
+
+        if (stats.engaged)
         {
-            stats.signalAngle = (stats.signalAngle + (Time.deltaTime * settings.sensitivity)) % 1;
 
-            polarCoordMPB.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
-            polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
+            if (playerInputData.input_move.x != 0)
+            {
+                stats.signalAngle = (stats.signalAngle + (Time.deltaTime * settings.sensitivity)) % 1;
 
-            signalRenTexMat.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
+                polarCoordMPB.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
+                polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
 
-            float zEulerAngle = (1 - stats.signalAngle) * 360;
-            polarCoordKnob.eulerAngles = new Vector3(polarCoordKnob.eulerAngles.x, polarCoordKnob.eulerAngles.y, zEulerAngle);
-        }
+                signalRenTexMat.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
 
-        if (Input.GetKey(KeyCode.D))
-        {
-            stats.signalAngle = (stats.signalAngle - (Time.deltaTime * settings.sensitivity)) % 1;
+                float zEulerAngle = (1 - stats.signalAngle) * 360;
+                polarCoordKnob.eulerAngles = new Vector3(polarCoordKnob.eulerAngles.x, polarCoordKnob.eulerAngles.y, zEulerAngle);
+            }
 
-            polarCoordMPB.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
-            polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
+            if (playerInputData.input_move.x == 1)
+            {
+                stats.signalAngle = (stats.signalAngle - (Time.deltaTime * settings.sensitivity)) % 1;
 
-            signalRenTexMat.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
+                polarCoordMPB.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
+                polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
 
-
-            float zEulerAngle = (1 - stats.signalAngle) * 360;
-            polarCoordKnob.eulerAngles = new Vector3(polarCoordKnob.eulerAngles.x, polarCoordKnob.eulerAngles.y, zEulerAngle);
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            stats.signalDistance = Mathf.Clamp01(stats.signalDistance + (Time.deltaTime * settings.sensitivity * 2));
-
-            polarCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
-            distanceCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
-
-            polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
-            distanceCoordRenderer.SetPropertyBlock(distanceCoordMPB);
-
-            signalRenTexMat.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
+                signalRenTexMat.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
 
 
-            float zEulerAngle = stats.signalDistance * 360;
-            distanceCoordKnob.eulerAngles = new Vector3(distanceCoordKnob.eulerAngles.x, distanceCoordKnob.eulerAngles.y, zEulerAngle);
-        }
+                float zEulerAngle = (1 - stats.signalAngle) * 360;
+                polarCoordKnob.eulerAngles = new Vector3(polarCoordKnob.eulerAngles.x, polarCoordKnob.eulerAngles.y, zEulerAngle);
+            }
 
-        if (Input.GetKey(KeyCode.S))
-        {
-            stats.signalDistance = Mathf.Clamp01(stats.signalDistance - (Time.deltaTime * settings.sensitivity * 2));
+            if (playerInputData.input_move.y == 1)
+            {
+                stats.signalDistance = Mathf.Clamp01(stats.signalDistance + (Time.deltaTime * settings.sensitivity * 2));
 
-            polarCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
-            distanceCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
+                polarCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
+                distanceCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
 
-            polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
-            distanceCoordRenderer.SetPropertyBlock(distanceCoordMPB);
+                polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
+                distanceCoordRenderer.SetPropertyBlock(distanceCoordMPB);
 
-            signalRenTexMat.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
+                signalRenTexMat.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
 
-            float zEulerAngle = stats.signalDistance * 360;
-            distanceCoordKnob.eulerAngles = new Vector3(distanceCoordKnob.eulerAngles.x, distanceCoordKnob.eulerAngles.y, zEulerAngle);
-        }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Record().Forget();
+                float zEulerAngle = stats.signalDistance * 360;
+                distanceCoordKnob.eulerAngles = new Vector3(distanceCoordKnob.eulerAngles.x, distanceCoordKnob.eulerAngles.y, zEulerAngle);
+            }
+
+            if (playerInputData.input_move.y == -1)
+            {
+                stats.signalDistance = Mathf.Clamp01(stats.signalDistance - (Time.deltaTime * settings.sensitivity * 2));
+
+                polarCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
+                distanceCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
+
+                polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
+                distanceCoordRenderer.SetPropertyBlock(distanceCoordMPB);
+
+                signalRenTexMat.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
+
+                float zEulerAngle = stats.signalDistance * 360;
+                distanceCoordKnob.eulerAngles = new Vector3(distanceCoordKnob.eulerAngles.x, distanceCoordKnob.eulerAngles.y, zEulerAngle);
+            }
+
+            if (playerInputData.input_interact)
+            {
+                Record().Forget();
+            }
         }
     }
 
@@ -181,5 +200,8 @@ public class AudioDevice : MonoBehaviour
         Debug.Log(Application.persistentDataPath);
         //UnityEditor.AssetDatabase.ImportAsset(fullPath);
     }
+
+    public void HandleInspectEngage() { stats.engaged = true; }
+    public void HandleInspectDisengage() { stats.engaged = false; }
 }
 

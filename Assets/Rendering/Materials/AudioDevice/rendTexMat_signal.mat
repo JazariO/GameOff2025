@@ -40,8 +40,8 @@ Material:
     - _LineThickness: 0.0091
     - _PowerAmount: 0.5
     - _Release: 0
-    - _SignalAngle: -0.11463388
-    - _SignalDistance: 0.7875331
+    - _SignalAngle: 0.938111
+    - _SignalDistance: 0.7375487
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
