@@ -48,6 +48,7 @@ MonoBehaviour:
   userSettingsDataSO: {fileID: 11400000, guid: 42ed0dc446564954a9d7ca980afc1936, type: 2}
   playerSaveDataSO: {fileID: 11400000, guid: cf84229b9df33ba4cab48531a4c9b67c, type: 2}
   OnInspectDisengageBegin: {fileID: 11400000, guid: a187a4116f3432e45837d04aedc0e1e4, type: 2}
+  OnPhotoTaken: {fileID: 11400000, guid: e0adc7164c08de14d8005119a04c5371, type: 2}
   photographicCameraPivotTransform: {fileID: 8681311413862658886}
   photographicCameraComponent: {fileID: 959815831565990564}
   photographic_camera_viewport_rendertexture: {fileID: 8400000, guid: e165a8216c7e1fb4086ea42db756c7cd, type: 2}
@@ -4340,7 +4341,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2672
+  m_VersionIndex: 2681
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -7124,7 +7125,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1356
+  m_VersionIndex: 1365
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -7850,7 +7851,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2604
+  m_VersionIndex: 2613
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -9236,7 +9237,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2911
+  m_VersionIndex: 2920
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
