@@ -48,6 +48,8 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
         playerInputDataSO.input_look = Vector2.zero;
         playerInputDataSO.input_interact = false;
         playerInputDataSO.input_change_view = false;
+        playerInputDataSO.input_mouse_position = Vector2.zero;
+        playerInputDataSO.input_mouse_button_left = false;
 
         // Init action maps
         _playerMap = playerInput.actions.FindActionMap("Player", true);
@@ -119,6 +121,9 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
         playerInputDataSO.input_look = _lookAction.ReadValue<Vector2>();
         playerInputDataSO.input_interact = _interactAction.WasPressedThisFrame();
         playerInputDataSO.input_change_view = _changeViewAction.WasPressedThisFrame();
+
+        playerInputDataSO.input_mouse_position = Mouse.current.position.ReadValue();
+        playerInputDataSO.input_mouse_button_left = Mouse.current.leftButton.wasPressedThisFrame;
 
         if(_pauseAction.WasPressedThisFrame() && !_pauseHandledThisFrame)
         {
