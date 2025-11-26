@@ -7,6 +7,7 @@ public class LaptopController : MonoBehaviour
     [SerializeField] PlayerSaveDataSO playerSaveDataSO;
     [SerializeField] GameObject media_explorer_prefab_file_image;
     [SerializeField] Transform media_explorer_panel_content_transform;
+    [SerializeField] RectTransform laptop_cursor_transform;
 
     [SerializeField] GameEvent OnPhotoTaken;
     [SerializeField] GameEvent OnInspectDisengageBegin;
@@ -15,6 +16,7 @@ public class LaptopController : MonoBehaviour
 
     private int photos_stored_count;
     private bool laptop_in_use;
+    private Vector2 laptop_cursor_offset; // start cursor centred
 
     private void OnEnable()
     {
@@ -31,7 +33,8 @@ public class LaptopController : MonoBehaviour
     {
         if(laptop_in_use)
         {
-
+            // update cursor position
+            laptop_cursor_transform.localPosition = playerSaveDataSO.laptop_canvas_mouse_position;
         }
     }
 
@@ -60,14 +63,12 @@ public class LaptopController : MonoBehaviour
     public void HandleInspectEngage()
     {
         laptop_in_use = true;
-        Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
     }
 
     public void HandleInspectDisengage()
     {
         laptop_in_use = false;
-        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
 }

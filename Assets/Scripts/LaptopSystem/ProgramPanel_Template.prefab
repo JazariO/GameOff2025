@@ -1049,7 +1049,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2738153651294514925}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000000014901161}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1057,8 +1057,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.0004272461, y: -49.999634}
-  m_SizeDelta: {x: -16, y: -363.69965}
+  m_AnchoredPosition: {x: 0, y: -49.999634}
+  m_SizeDelta: {x: -16, y: -57.999634}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &7585529590330494593
 CanvasRenderer:
@@ -1455,7 +1455,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Media Explorer
+  m_text: Program
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5eae2058891792d4a8e81fe26f644592, type: 2}
   m_sharedMaterial: {fileID: -2041426617153736120, guid: 5eae2058891792d4a8e81fe26f644592, type: 2}
