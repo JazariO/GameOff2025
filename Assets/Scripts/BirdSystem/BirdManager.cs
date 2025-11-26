@@ -3,15 +3,16 @@ using UnityEngine;
 
 public class BirdManager : MonoBehaviour
 {
+    [SerializeField] BirdManagerSettingsSOs settings;
+    [SerializeField] BirdManagerStatsSOs stats;
     [SerializeField] GameObject[] birds;
     [SerializeField] TreeSO[] trees;
     [SerializeField] Terrain terrain;
-    [SerializeField] CustomRenderTexture birdMapRenderTexture;
 
     [Serializable] public struct PositionData
     {
-        internal Vector4[] worldBirdPositions;
-        internal Vector4[] normBirdPositions;
+        internal Vector4[] birdTargetPositions;
+        internal Vector4[] birdWorldPositions;
     }
     [SerializeField] PositionData positionData;
     [Serializable] public struct MaterialIDs
@@ -22,63 +23,63 @@ public class BirdManager : MonoBehaviour
 
     private void Awake()
     {
-        positionData.worldBirdPositions = new Vector4[16];
-        positionData.normBirdPositions = new Vector4[16];
+        positionData.birdTargetPositions = new Vector4[32];
+        positionData.birdWorldPositions = new Vector4[32];
+
+        materialIDs.birdPositionID = Shader.PropertyToID("_BirdPositions");
     }
     private void Start()
     {
-        Vector2 texSize = new Vector4(birdMapRenderTexture.width, birdMapRenderTexture.height);
-        for (int i = 0; i < positionData.worldBirdPositions.Length; i++)
+        for (int i = 0; i < positionData.birdTargetPositions.Length; i++)
         {
-            for (int j = 0; j < 2;  j++)
+            int randTreeIndex = UnityEngine.Random.Range(0, terrain.terrainData.treeInstanceCount);
+            TreeInstance tree = terrain.terrainData.treeInstances[randTreeIndex];
+
+            Vector3 treePos = new Vector3(tree.position.x * terrain.terrainData.size.x, tree.position.y * terrain.terrainData.size.y, tree.position.z * terrain.terrainData.size.z) + terrain.transform.position;
+
+            TreeSO curTree = null;
+            for (int k = 0; k < trees.Length; k++)
             {
-                bool isEven = j % 2 == 0;
-
-                int randTreeIndex = UnityEngine.Random.Range(0, terrain.terrainData.treeInstanceCount);
-                TreeInstance tree = terrain.terrainData.treeInstances[randTreeIndex];
-
-                Vector3 treePos = new Vector3(tree.position.x * terrain.terrainData.size.x, tree.position.y * terrain.terrainData.size.y, tree.position.z * terrain.terrainData.size.z) + terrain.transform.position;
-
-                TreeSO curTree = null;
-                for (int k = 0; k < trees.Length; k++)
+                if (terrain.terrainData.treePrototypes[tree.prototypeIndex].prefab == trees[k].tree)
                 {
-                    if (terrain.terrainData.treePrototypes[tree.prototypeIndex].prefab == trees[k].tree)
-                    {
-                        curTree = trees[k]; 
-                        break;
-                    }
-                }
-
-                if (curTree == null) { Debug.LogError("Did not find tree type"); return; }
-                int randPerchIndex = UnityEngine.Random.Range(0, curTree.perchesPositions.Length);
-                Vector3 localPerchPos = curTree.perchesPositions[randPerchIndex];
-                Vector3 scaledPerchPos = new Vector3(localPerchPos.x * tree.widthScale, localPerchPos.y * tree.heightScale, localPerchPos.z * tree.widthScale);
-
-                Quaternion treeRot = Quaternion.Euler(0, tree.rotation * Mathf.Rad2Deg, 0);
-                Vector3 worldPerchPos = treeRot * scaledPerchPos + treePos;
-
-                float terYPos = worldPerchPos.y;
-                if (isEven)
-                {
-                    positionData.worldBirdPositions[i].x = worldPerchPos.x;
-                    positionData.worldBirdPositions[i].y = worldPerchPos.z;
-
-                    Vector2 pos = new Vector2(positionData.worldBirdPositions[i].x, positionData.worldBirdPositions[i].y);
-                    Instantiate(birds[0], new Vector3(pos.x, terYPos, pos.y), Quaternion.identity);
-                }
-                else
-                {
-                    positionData.worldBirdPositions[i].z = worldPerchPos.x;
-                    positionData.worldBirdPositions[i].w = worldPerchPos.z;
-
-                    Vector2 pos = new Vector2(positionData.worldBirdPositions[i].z, positionData.worldBirdPositions[i].w);
-                    Instantiate(birds[0], new Vector3(pos.x, terYPos, pos.y), Quaternion.identity);
+                    curTree = trees[k];
+                    break;
                 }
             }
 
-            positionData.normBirdPositions[i] = new Vector4 (positionData.worldBirdPositions[i].x / texSize.x, positionData.worldBirdPositions[i].y / texSize.y, positionData.worldBirdPositions[i].z / texSize.x, positionData.worldBirdPositions[i].w / texSize.y);
+            if (curTree == null) { Debug.LogError("Did not find tree type"); return; }
+
+            int randPerchIndex = UnityEngine.Random.Range(0, curTree.perchesPositions.Length);
+            Vector3 localPerchPos = curTree.perchesPositions[randPerchIndex];
+            Vector3 scaledPerchPos = new Vector3(localPerchPos.x * tree.widthScale, localPerchPos.y * tree.heightScale, localPerchPos.z * tree.widthScale);
+
+            Quaternion treeRot = Quaternion.Euler(0, tree.rotation * Mathf.Rad2Deg, 0);
+            Vector3 worldPerchPos = treeRot * scaledPerchPos + treePos;
+
+            positionData.birdTargetPositions[i].x = worldPerchPos.x;
+            positionData.birdTargetPositions[i].y = worldPerchPos.z;
+
+            Vector2 pos = new Vector2(positionData.birdTargetPositions[i].x, positionData.birdTargetPositions[i].y);
+                
+            Vector2 halfTerrainSize = new Vector2(terrain.terrainData.size.x, terrain.terrainData.size.z) * 0.5f;
+            Vector2 randCirclePos = UnityEngine.Random.insideUnitCircle * halfTerrainSize;
+            float randHeight = UnityEngine.Random.Range(settings.spawnHeightRange.x, settings.spawnHeightRange.y);
+
+            BirdBrain bird = Instantiate(birds[0], new Vector3(randCirclePos.x, randHeight, randCirclePos.y), Quaternion.identity).GetComponent<BirdBrain>();
+            stats.birds[i] = bird;
+            bird.statData.targetPosition = new Vector3(pos.x, worldPerchPos.y, pos.y);
+
         }
-        materialIDs.birdPositionID = Shader.PropertyToID("_BirdPositions");
-        Shader.SetGlobalVectorArray(materialIDs.birdPositionID, positionData.normBirdPositions);
+    }
+
+    private void Update()
+    {
+        for(int i = 0; i < positionData.birdWorldPositions.Length; i++)
+        {
+            positionData.birdWorldPositions[i].x = stats.birds[i].transform.position.x;
+            positionData.birdWorldPositions[i].y = stats.birds[i].transform.position.z;
+        }
+        
+        Shader.SetGlobalVectorArray(materialIDs.birdPositionID, positionData.birdWorldPositions);
     }
 }
