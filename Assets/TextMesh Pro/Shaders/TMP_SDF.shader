@@ -184,7 +184,7 @@ SubShader {
 			pixelSize /= float2(_ScaleX, _ScaleY) * abs(mul((float2x2)UNITY_MATRIX_P, _ScreenParams.xy));
 			float scale = rsqrt(dot(pixelSize, pixelSize));
 			scale *= abs(input.texcoord0.w) * _GradientScale * (_Sharpness + 1);
-			if (UNITY_MATRIX_P[3][3] == 0) scale = lerp(abs(scale) * (1 - _PerspectiveFilter), scale, abs(dot(UnityObjectToWorldNormal(input.normal.xyz), normalize(WorldSpaceViewDir(vert)))));
+			//if (UNITY_MATRIX_P[3][3] == 0) scale = lerp(abs(scale) * (1 - _PerspectiveFilter), scale, abs(dot(UnityObjectToWorldNormal(input.normal.xyz), normalize(WorldSpaceViewDir(vert)))));
 
 			float weight = lerp(_WeightNormal, _WeightBold, bold) / 4.0;
 			weight = (weight + _FaceDilate) * _ScaleRatioA * 0.5;
@@ -197,8 +197,7 @@ SubShader {
 			alphaClip = min(alphaClip, 1.0 - _GlowOffset * _ScaleRatioB - _GlowOuter * _ScaleRatioB);
 		    #endif
 
-			//alphaClip = alphaClip / 2.0 - ( .5 / scale) - weight;
-			alphaClip = max(alphaClip / 2.0 - ( 0.5 / scale) - weight, 0.01);
+			alphaClip = max(alphaClip / 2.0 - ( .5 / scale) - weight, 0.01);
 
 		    #if (UNDERLAY_ON || UNDERLAY_INNER)
 			float4 underlayColor = _UnderlayColor;
@@ -249,11 +248,11 @@ SubShader {
 			UNITY_SETUP_INSTANCE_ID(input);
 
 			float c = tex2D(_MainTex, input.atlas).a;
-
+			/*
 		    #ifndef UNDERLAY_ON
 			clip(c - input.param.x);
 		    #endif
-
+			*/
 			float	scale	= input.param.y;
 			float	bias	= input.param.z;
 			float	weight	= input.param.w;
@@ -271,7 +270,7 @@ SubShader {
 			outlineColor *= tex2D(_OutlineTex, input.textures.zw + float2(_OutlineUVSpeedX, _OutlineUVSpeedY) * _Time.y);
 
 			faceColor = GetColor(sd, faceColor, outlineColor, outline, softness);
-
+			/*
 		    #if BEVEL_ON
 			float3 dxy = float3(0.5 / _TextureWidth, 0.5 / _TextureHeight, 0);
 			float3 n = GetSurfaceNormal(input.atlas, weight, dxy);
@@ -315,7 +314,7 @@ SubShader {
 		    #if UNITY_UI_ALPHACLIP
 			clip(faceColor.a - 0.001);
 		    #endif
-
+			*/
   		    return faceColor * input.color.a;
 		}
 		ENDCG
