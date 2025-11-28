@@ -111,15 +111,26 @@ ProjectSettings/Packages/com.unity.probuilder/Settings.json
 !/[Aa]ssets/Gizmos/FMOD/*
 !/[Aa]ssets/Editor Default Resources/FMOD/*
 
-# Ignore bank files in the StreamingAssets folder.
-/[Aa]ssets/StreamingAssets/**/*.bank
-/[Aa]ssets/StreamingAssets/**/*.bank.meta
+# ===== Unity FMOD Cache (changes every time Unity opens) =====
+# This is the main culprit for non-audio devs seeing changes
+Assets/Plugins/FMOD/Cache/
 
-# Log files can be ignored.
-fmod_editor.log
+# ===== FMOD Studio Project Files =====
+# Ignore the entire FMOD studio project - audio designers work here
+fmod~/**
+
+# But DO track the .fspro project file (for audio designers)
+!fmod~/**/*.fspro
+!fmod~/**/.gitkeep
+
+# ===== Built Banks =====
+# Banks in Unity's StreamingAssets (copied from fmod_banks~/)
+# These get copied by your build process, so ignore them
+Assets/StreamingAssets/**/*.bank
+Assets/StreamingAssets/**/*.bank.meta
 
 # Ignore FMOD studio user cache
-# fmod~/.cache/** #uncomment this to remove fmod~/.cache/ in the future
+fmod~/**/.cache/ #uncomment this to remove fmod~/.cache/ in the future
 
 # Ignore FMOD studio unsaved changes
 fmod~/.unsaved/**
@@ -128,7 +139,17 @@ fmod~/.unsaved/**
 # Bank files being built from the fmod studio layer should instead be directed to fmod~/../fmod_banks/Desktop/*
 # so that both fmod and unity can externally point to the same banks folder in the root directory.
 
-# Ignore FMOD studio direct build cache 
-fmod~/Build/**
+# The source of truth for banks - DO track these
+# Audio designers commit here
+!fmod_banks~/**
+
+# ===== Logs and Temp =====
+fmod_editor.log
+*.tmp
+*.bak
+*.swp
+
 
 #### ---------- END FMOD IGNORE ---------- ####
+
+
