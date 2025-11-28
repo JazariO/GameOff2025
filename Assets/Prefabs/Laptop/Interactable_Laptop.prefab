@@ -827,6 +827,14 @@ MonoBehaviour:
   OnMediaExplorerFileSelect: {fileID: 11400000, guid: 2704dbf5fcf5ad04697b1e8ca30cf41d, type: 2}
   mediaExplorerDetailsPanelDataSO: {fileID: 11400000, guid: fbcbf771274a5ac4d9efb86c58aae991, type: 2}
   photographic_camera_viewport_rendertexture: {fileID: 8400000, guid: e165a8216c7e1fb4086ea42db756c7cd, type: 2}
+  fmod_event_laptop_click_single:
+    Guid:
+      Data1: 302638778
+      Data2: 1200025030
+      Data3: -2007492180
+      Data4: 1303339174
+    Path: event:/laptop_click_single_multi-instrument
+  laptopModelTransform: {fileID: 6019575927455024328}
   details_panel_display_image: {fileID: 8857546780545297164}
   details_panel_timestamp_TMP: {fileID: 6217963555068964575}
 --- !u!114 &5952025147604535555
@@ -957,7 +965,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -7.9996033, y: -42.001404}
+  m_AnchoredPosition: {x: -7.9996033, y: -42.00128}
   m_SizeDelta: {x: 15.999542, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1870939345262231803
@@ -1215,7 +1223,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2022385220281642472}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.0000052336472
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3703,6 +3711,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f900deb2adcad44ca5434fb24e2f016, type: 3}
+--- !u!4 &6019575927455024328 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1901193901977771258, guid: 5f900deb2adcad44ca5434fb24e2f016, type: 3}
+  m_PrefabInstance: {fileID: 5326546346771290162}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8317513403383365345 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4217075629138519763, guid: 5f900deb2adcad44ca5434fb24e2f016, type: 3}
