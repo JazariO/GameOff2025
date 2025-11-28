@@ -57,10 +57,6 @@ public class BirdBrain : MonoBehaviour
     {
         SelectState();
         UpdateState();
-
-        inputData.direction = (statData.targetPosition - transform.position).normalized;
-
-        inputData.move = Vector3.Distance(transform.position, statData.targetPosition) > 0.1f ? inputData.direction : Vector3.zero;
     }
 
     private void FixedUpdate()
@@ -119,7 +115,9 @@ public class BirdBrain : MonoBehaviour
 
             case State.Fly:
             {
+                inputData.direction = (statData.targetPosition - transform.position).normalized;
 
+                inputData.move = Vector3.Distance(transform.position, statData.targetPosition) > 0.1f ? inputData.direction : Vector3.zero;
             }
             break;
         }

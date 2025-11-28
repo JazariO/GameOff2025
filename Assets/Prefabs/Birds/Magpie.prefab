@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2288905176129611348}
   - component: {fileID: 3280751079383302424}
   - component: {fileID: 197468101058225651}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Magpie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
