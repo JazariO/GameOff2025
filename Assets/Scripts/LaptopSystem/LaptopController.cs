@@ -3,6 +3,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using FMODUnity;
+using UnityEngine.InputSystem;
 
 public class LaptopController : MonoBehaviour
 {
@@ -18,6 +20,10 @@ public class LaptopController : MonoBehaviour
 
     [SerializeField] MediaExplorerDetailsPanelDataSO mediaExplorerDetailsPanelDataSO;
     [SerializeField] RenderTexture photographic_camera_viewport_rendertexture;
+
+    [SerializeField] FMODUnity.EventReference fmod_event_laptop_click_single;
+
+    [SerializeField] Transform laptopModelTransform;
 
     [Header("Details Panel References")]
     [SerializeField] Image details_panel_display_image;
@@ -47,7 +53,12 @@ public class LaptopController : MonoBehaviour
             // update cursor position
             laptop_cursor_transform.localPosition = 
                 new Vector2(Mathf.Floor(playerSaveDataSO.laptop_canvas_mouse_position.x / 4) * 4, Mathf.Floor(playerSaveDataSO.laptop_canvas_mouse_position.y / 4) * 4);
-            Debug.Log("latop mouse pos: " + laptop_cursor_transform.localPosition);
+
+            // play click audio
+            if(Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                FMODUnity.RuntimeManager.PlayOneShot(fmod_event_laptop_click_single, laptopModelTransform.position);
+            }
         }
     }
 
