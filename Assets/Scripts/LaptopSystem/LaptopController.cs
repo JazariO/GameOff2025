@@ -45,7 +45,9 @@ public class LaptopController : MonoBehaviour
         if(laptop_in_use)
         {
             // update cursor position
-            laptop_cursor_transform.localPosition = playerSaveDataSO.laptop_canvas_mouse_position;
+            laptop_cursor_transform.localPosition = 
+                new Vector2(Mathf.Floor(playerSaveDataSO.laptop_canvas_mouse_position.x / 4) * 4, Mathf.Floor(playerSaveDataSO.laptop_canvas_mouse_position.y / 4) * 4);
+            Debug.Log("latop mouse pos: " + laptop_cursor_transform.localPosition);
         }
     }
 
