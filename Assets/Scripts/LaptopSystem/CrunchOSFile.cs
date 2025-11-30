@@ -41,18 +41,15 @@ public class CrunchOSFile : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     void IPointerEnterHandler.OnPointerEnter(PointerEventData _)
     {
         if(!selected) crunchFileData.fileSelectionImage.color = new Color(0f, 0.5f, 1f, 1f);
-        Debug.Log("Pointer Enter");
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData _)
     {
         if(!selected) crunchFileData.fileSelectionImage.color = new Color(0f, 0.5f, 1f, 0f);
-        Debug.Log("Pointer Exit");
     }
 
     void IPointerClickHandler.OnPointerClick(PointerEventData pointerEventData)
     {
-        Debug.Log("Pointer Click");
         OnMediaExplorerFileDeselectAll.Raise();
 
         mediaExplorerDetailsPanelDataSO.crunch_OS_file_data = this.crunchFileData;
