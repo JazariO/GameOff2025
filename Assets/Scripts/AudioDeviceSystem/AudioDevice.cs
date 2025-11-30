@@ -24,6 +24,9 @@ public class AudioDevice : MonoBehaviour
     [SerializeField] Material recordedSignalMaterial;
     [SerializeField] Transform polarCoordKnob;
     [SerializeField] Transform distanceCoordKnob;
+    [SerializeField] Transform micPivotYawTransform;
+    [SerializeField] Transform micPivotPitchTransform;
+
     [Serializable] struct MaterialIDs
     {
         internal int signalAngleID;
@@ -45,6 +48,9 @@ public class AudioDevice : MonoBehaviour
     }
     public Stats stats;
 
+    private float cachedMicYaw;
+    private float cachedMicPitch;
+
     private void Awake()
     {
         materialIDs.signalAngleID = Shader.PropertyToID("_SignalAngle");
@@ -65,10 +71,20 @@ public class AudioDevice : MonoBehaviour
 
     private void Start()
     {
+        // NOTE(Jazz): initialize the signal angle and distance from here rather than reading from the material.
+        stats.signalAngle = 0;
+        stats.signalDistance = 1;
+
+        polarCoordMPB.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
+        distanceCoordMPB.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
+        polarCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
+        distanceCoordMPB.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
+
         polarCoordRenderer.SetPropertyBlock(polarCoordMPB);
         distanceCoordRenderer.SetPropertyBlock(distanceCoordMPB);
-        stats.signalAngle = polarCoordRenderer.sharedMaterial.GetFloat(materialIDs.signalAngleID);
-        stats.signalDistance = distanceCoordRenderer.sharedMaterial.GetFloat(materialIDs.signalDistanceID);
+
+        cachedMicYaw = micPivotYawTransform.localEulerAngles.y;
+        cachedMicPitch = micPivotPitchTransform.localEulerAngles.x;
     }
     private void OnEnable()
     {
@@ -96,7 +112,9 @@ public class AudioDevice : MonoBehaviour
                 signalRenTexMat.SetFloat(materialIDs.signalAngleID, stats.signalAngle);
 
                 float zEulerAngle = (1 - stats.signalAngle) * 360;
-                polarCoordKnob.eulerAngles = new Vector3(polarCoordKnob.eulerAngles.x, polarCoordKnob.eulerAngles.y, zEulerAngle);
+                polarCoordKnob.localEulerAngles = new Vector3(polarCoordKnob.localEulerAngles.x, polarCoordKnob.localEulerAngles.y, zEulerAngle);
+
+                micPivotYawTransform.localEulerAngles = new Vector3(micPivotYawTransform.localEulerAngles.x, zEulerAngle + cachedMicYaw, micPivotYawTransform.localEulerAngles.z);
             }
 
 
@@ -113,8 +131,11 @@ public class AudioDevice : MonoBehaviour
                 signalRenTexMat.SetFloat(materialIDs.signalDistanceID, stats.signalDistance);
 
 
-                float zEulerAngle = stats.signalDistance * 360;
+                float zEulerAngle = stats.signalDistance * 90;
                 distanceCoordKnob.eulerAngles = new Vector3(distanceCoordKnob.eulerAngles.x, distanceCoordKnob.eulerAngles.y, zEulerAngle);
+
+                float pitchEulerAngle = (1 - Mathf.Clamp01(stats.signalDistance - (Time.deltaTime * settings.sensitivity * 2 * -playerInputData.input_move.y))) * 90;
+                micPivotPitchTransform.localEulerAngles = new Vector3(pitchEulerAngle + cachedMicPitch, micPivotPitchTransform.localEulerAngles.y, micPivotPitchTransform.localEulerAngles.z);
             }
 
             if (playerInputData.input_interact)
