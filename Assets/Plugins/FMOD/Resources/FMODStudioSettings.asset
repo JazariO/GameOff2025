@@ -408,6 +408,7 @@ MonoBehaviour:
   Banks:
   - BGM
   - Birds
+  - laptop_bank
   - SFX
   BanksToLoad: []
   LiveUpdatePort: 9264
