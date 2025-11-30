@@ -63,6 +63,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3088684143851716205}
   - {fileID: 531262882612690396}
   m_Father: {fileID: 1455092455250030967}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -231,14 +232,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3759673126331634044}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 0.08177677, y: 0.19819514, z: 0.014900287}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 355391355404370747}
   m_Father: {fileID: 3964538087519483975}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
 --- !u!33 &8470772860316296849
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -380,6 +381,79 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &7558689833089835957
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3088684143851716205}
+  - component: {fileID: 569904396313661124}
+  - component: {fileID: 2955818767433835545}
+  m_Layer: 0
+  m_Name: AudioDevice_BirdDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3088684143851716205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7558689833089835957}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.0764, y: 0.1871, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 355391355404370747}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!136 &569904396313661124
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7558689833089835957}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4
+  m_Height: 300
+  m_Direction: 1
+  m_Center: {x: 0, y: 146, z: 0}
+--- !u!114 &2955818767433835545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7558689833089835957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72078ead63c6824408339a0ce8736b1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  birdsInRange: []
+  bird_detection_capsule: {fileID: 569904396313661124}
+  bird_detection_layer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &7805376811079342763
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,15 +551,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4930561972052001470, guid: b6b19997f6a40f240a88603ae70d9053, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.084563345
+      value: -0.0773
       objectReference: {fileID: 0}
     - target: {fileID: 4930561972052001470, guid: b6b19997f6a40f240a88603ae70d9053, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.14136192
+      value: -0.1414
       objectReference: {fileID: 0}
     - target: {fileID: 4930561972052001470, guid: b6b19997f6a40f240a88603ae70d9053, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.039173245
+      value: -0.0394
       objectReference: {fileID: 0}
     - target: {fileID: 4930561972052001470, guid: b6b19997f6a40f240a88603ae70d9053, type: 3}
       propertyPath: m_LocalRotation.w
