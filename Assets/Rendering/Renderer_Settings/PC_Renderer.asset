@@ -65,14 +65,9 @@ MonoBehaviour:
   m_Name: CustomRendererFeature
   m_EditorClassIdentifier: 
   m_Active: 1
-  shader: {fileID: -6465566751694194690, guid: 3088cb80f62c56a4f9696aebae218ca4, type: 3}
-  renderPassEvent: 600
-  passEventOrder: 0
-  birdMask:
+  birdMaskRenderTexture: {fileID: 8400000, guid: 1357fa11a9b519a4993d9dac578a4b05, type: 2}
+  photographicRenderTexture: {fileID: 8400000, guid: e165a8216c7e1fb4086ea42db756c7cd, type: 2}
+  birdLayerMask:
     serializedVersion: 2
     m_Bits: 256
-  shaderTagSettings:
-    EnabledLightModeTags: 15
-  sortingCriteria: 59
-  photographicRenderTexture: {fileID: 8400000, guid: e165a8216c7e1fb4086ea42db756c7cd, type: 2}
-  birdMaskRenderTexture: {fileID: 8400000, guid: 1357fa11a9b519a4993d9dac578a4b05, type: 2}
+  birdMaskMaterial: {fileID: 2100000, guid: 8684d80f631cc944d99eff00b522a04e, type: 2}
