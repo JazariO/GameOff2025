@@ -9,12 +9,6 @@ public class BirdBrain : MonoBehaviour
 
     [SerializeField] BirdSO settings;
 
-    public enum BirdType
-    {
-        Magpie,
-    }
-    public BirdType birdType;
-
     public enum State
     {
         Idle,
