@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8684d80f631cc944d99eff00b522a04e, type: 2}
+  - {fileID: 2100000, guid: 2aab52f7ae47932479185f835a94ac8a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -161,7 +161,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3771152092340318122}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 3008656442962172316, guid: 14e0b3ce96fdd17498bad5641ad38630, type: 3}
 --- !u!114 &197468101058225651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,5 +178,4 @@ MonoBehaviour:
   meshCollider: {fileID: 7682172507061055596}
   animator: {fileID: 2288905176129611348}
   settings: {fileID: 11400000, guid: b81a68151589ee24eb9a4cc04631cf31, type: 2}
-  birdType: 0
   curState: 0
