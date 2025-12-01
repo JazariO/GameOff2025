@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{c866524d-8d33-46dd-bc99-36a8515b451f}">
+		<property name="assetPath">
+			<value>Birds/Superb-Lyrebird--eBird.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>560.23199999999997</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{87059a0d-f47f-4e7c-a7bc-a227ff9951c1}</destination>
+		</relationship>
+	</object>
+</objects>

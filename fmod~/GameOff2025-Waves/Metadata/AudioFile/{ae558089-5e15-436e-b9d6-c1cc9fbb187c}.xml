@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{ae558089-5e15-436e-b9d6-c1cc9fbb187c}">
+		<property name="assetPath">
+			<value>Ambience/audio_ambience_bush.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>85.00266666666667</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{87059a0d-f47f-4e7c-a7bc-a227ff9951c1}</destination>
+		</relationship>
+	</object>
+</objects>

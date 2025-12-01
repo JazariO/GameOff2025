@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{a003fed1-2090-4a6c-a5b1-680e034d8dd4}">
+		<property name="assetPath">
+			<value>Birds/Crested-Pigeon--eBird.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>71.447999999999993</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{87059a0d-f47f-4e7c-a7bc-a227ff9951c1}</destination>
+		</relationship>
+	</object>
+</objects>

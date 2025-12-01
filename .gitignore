@@ -117,7 +117,7 @@ Assets/Plugins/FMOD/Cache/
 
 # ===== FMOD Studio Project Files =====
 # Ignore the entire FMOD studio project - audio designers work here
-fmod~/**
+#fmod~/**
 
 # But DO track the .fspro project file (for audio designers)
 !fmod~/**/*.fspro

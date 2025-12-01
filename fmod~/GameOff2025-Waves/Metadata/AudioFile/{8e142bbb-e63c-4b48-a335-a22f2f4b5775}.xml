@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{8e142bbb-e63c-4b48-a335-a22f2f4b5775}">
+		<property name="assetPath">
+			<value>Birds/Common-Myna--eBird.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>15.167999999999999</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{87059a0d-f47f-4e7c-a7bc-a227ff9951c1}</destination>
+		</relationship>
+	</object>
+</objects>
