@@ -9,160 +9,119 @@ using UnityEngine.Rendering.Universal;
 
 public class CustomRendererFeature : ScriptableRendererFeature
 {
-    [SerializeField, Space] private Shader shader;
-    [SerializeField] private RenderPassEvent renderPassEvent = RenderPassEvent.AfterRenderingPostProcessing;
-    [SerializeField] int passEventOrder = 0;
-
-    public LayerMask birdMask;
-    public ShaderTagSettings shaderTagSettings = new ShaderTagSettings();
-    public RenderQueueRange renderQueueRange = RenderQueueRange.opaque;
-    public SortingCriteria sortingCriteria = SortingCriteria.CommonOpaque;
-    public RenderTexture photographicRenderTexture;
     public RenderTexture birdMaskRenderTexture;
-    internal Material material;
+    public RenderTexture photographicRenderTexture;
+    public LayerMask birdLayerMask;
+    public Material birdMaskMaterial;
 
-    private BirdMaskRenderFeaturePass birdMaskRenderFeaturePass;
-
+    private BirdMaskRenderFeaturePass _birdMaskPass;
     public override void Create()
     {
-        //material = CoreUtils.CreateEngineMaterial(shader);
-
-        birdMaskRenderFeaturePass = new BirdMaskRenderFeaturePass(this);
-        birdMaskRenderFeaturePass.renderPassEvent = (RenderPassEvent)((int)renderPassEvent + passEventOrder);
+        _birdMaskPass = new BirdMaskRenderFeaturePass(this)
+        {
+            // Configures where the render pass should be injected.
+            renderPassEvent = RenderPassEvent.AfterRenderingOpaques
+        };
     }
 
+    // Here you can inject one or multiple render passes in the renderer.
+    // This method is called when setting up the renderer once per-camera.
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
-        if (renderingData.cameraData.camera.tag != "PhotographicCamera") return;
+        Camera cam = renderingData.cameraData.camera;
 
-        birdMaskRenderFeaturePass.SetUp(birdMask.value, shaderTagSettings.GetShaderTagIds(), renderQueueRange, sortingCriteria);
-
-        birdMaskRenderFeaturePass.ConfigureInput(ScriptableRenderPassInput.Color | ScriptableRenderPassInput.Depth);
-        renderer.EnqueuePass(birdMaskRenderFeaturePass);
+        // Only inject for the PhotographicCamera
+        if (cam.CompareTag("PhotographicCamera"))
+        {
+            renderer.EnqueuePass(_birdMaskPass);
+        }
     }
 }
 public class BirdMaskRenderFeaturePass : ScriptableRenderPass
 {
-    LayerMask birdLayerMask;
-    ShaderTagId[] shaderTagIds;
-    RenderQueueRange renderQueueRange;
-    SortingCriteria sortingCriteria;
-
-    public void SetUp(LayerMask mask, ShaderTagId[] shaderTagIds = null, RenderQueueRange queueRange = default, SortingCriteria crit = SortingCriteria.CommonOpaque)
+    private readonly CustomRendererFeature _rendererFeature;
+    public BirdMaskRenderFeaturePass(CustomRendererFeature avatarRenderer)
     {
-        this.birdLayerMask = mask;
-        this.shaderTagIds = shaderTagIds;
-        this.renderQueueRange = queueRange;
-        this.sortingCriteria = crit;
-    }
-    private readonly CustomRendererFeature rendererFeature;
-
-    public BirdMaskRenderFeaturePass(CustomRendererFeature rendererFeature) => this.rendererFeature = rendererFeature;
-
-
-    private class PassData
-    { 
-        internal TextureHandle sourceColor;
-        internal TextureHandle targetColor;
-        internal TextureHandle birdMaskTexHandle;
-        internal RendererListHandle rendererList;
+        _rendererFeature = avatarRenderer;
     }
 
+
+    private class BirdMaskPassData
+    {
+        internal RendererListHandle objectRendererList;
+    }
+
+    private class PhotographicPassData
+    {
+        internal RendererListHandle objectRendererList;
+    }
     public override void RecordRenderGraph(RenderGraph renderGraph, ContextContainer frameData)
     {
+        // Get data needed later from the frame
         UniversalResourceData resourceData = frameData.Get<UniversalResourceData>();
-        UniversalCameraData cameraData = frameData.Get<UniversalCameraData>();
         UniversalRenderingData renderingData = frameData.Get<UniversalRenderingData>();
+        UniversalCameraData cameraData = frameData.Get<UniversalCameraData>();
+        UniversalLightData lightData = frameData.Get<UniversalLightData>();
 
-        TextureHandle backBufferData = resourceData.backBufferColor;
-        TextureDesc textDesc = resourceData.cameraColor.GetDescriptor(renderGraph);
-        textDesc.name = "CustomTexture";
-        textDesc.clearBuffer = false;
-        TextureHandle dest = renderGraph.CreateTexture(textDesc);
+        if (!resourceData.cameraColor.IsValid()) return; // occasionally in editor switching to a different window or tab will invalidate the camera color textures
 
+        // Use the current camera color and depth descriptions so we don't get mismatches, which can cause validation errors.
+        TextureDesc birdMaskTexDesc = renderGraph.GetTextureDesc(resourceData.cameraColor);
+        birdMaskTexDesc.name = "Bird Mask Render Texture";
+        birdMaskTexDesc.clearBuffer = true;
+        RTHandle birdMaskRTHandle = RTHandles.Alloc(_rendererFeature.birdMaskRenderTexture);
+        TextureHandle birdMaskTexHandle = renderGraph.ImportTexture(birdMaskRTHandle);
 
-        RTHandle birdMaskRTHandle = RTHandles.Alloc(rendererFeature.birdMaskRenderTexture);
-        //TextureHandle birdMaskTexHandle = renderGraph.ImportTexture(birdMaskRTHandle);
-        PassData passData;
-        using (var builder = renderGraph.AddRasterRenderPass<PassData>("Bird Mask Render Pass", out passData))
+        TextureDesc photographicTexDesc = resourceData.cameraColor.GetDescriptor(renderGraph);
+        photographicTexDesc.name = "Photographic Render Texture";
+        photographicTexDesc.clearBuffer = true;
+        TextureHandle photographicTexHandle = renderGraph.CreateTexture(photographicTexDesc);
+
+        // This adds a raster render pass to the graph, specifying the name and the data type that will be passed to the ExecutePass function.
+        using (var builder = renderGraph.AddRasterRenderPass<BirdMaskPassData>("Bird Mask render pass", out var passData))
         {
+            if (_rendererFeature.birdMaskRenderTexture == null || _rendererFeature.birdMaskMaterial == null) return;
 
-            var rendererListDesc = new RendererListDesc(shaderTagIds, renderingData.cullResults, cameraData.camera)
+            FilteringSettings filterSettings = new FilteringSettings(RenderQueueRange.opaque, _rendererFeature.birdLayerMask);
+
+            // Redraw only objects that have their LightMode tag set to UniversalForward or SRPDefaultUnlit
+            List<ShaderTagId> shadersToOverride = new List<ShaderTagId>
             {
-                sortingCriteria = sortingCriteria,
-                rendererConfiguration = PerObjectData.None,
-                renderQueueRange = renderQueueRange,
-                layerMask = birdLayerMask
+                new("UniversalForward"),
+                new("SRPDefaultUnlit")
             };
+            DrawingSettings drawSettings = RenderingUtils.CreateDrawingSettings(shadersToOverride, renderingData, cameraData, lightData, cameraData.defaultOpaqueSortFlags);
+            drawSettings.overrideMaterial = _rendererFeature.birdMaskMaterial;
 
+            // Create the list of objects to draw
+            RendererListParams rendererListParameters = new RendererListParams(renderingData.cullResults, drawSettings, filterSettings);
 
-           // passData.birdMaskTexHandle = renderGraph.ImportTexture(birdMaskRTHandle);
-            passData.targetColor = dest;
-            passData.sourceColor = resourceData.cameraColor;
-            passData.rendererList = renderGraph.CreateRendererList(rendererListDesc);
+            // Convert the list to a list handle that the render graph system can use
+            passData.objectRendererList = renderGraph.CreateRendererList(rendererListParameters);
 
-            builder.UseRendererList(passData.rendererList);
-            builder.UseTexture(passData.sourceColor); // getting souce color
-            builder.SetRenderAttachment(passData.targetColor, 0, AccessFlags.WriteAll); // setting source color via the target that is a copy
+            // Set the render target as the color and depth textures of the active camera texture
+            builder.UseRendererList(passData.objectRendererList);
 
-            builder.SetRenderFunc((PassData data, RasterGraphContext ctx) =>
-            {
-                ctx.cmd.ClearRenderTarget(clearDepth: false, clearColor: true, Color.clear);
-                ctx.cmd.DrawRendererList(passData.rendererList);
-            });
-
+            builder.SetRenderAttachment(birdMaskTexHandle, 0);
+            builder.SetRenderFunc((BirdMaskPassData data, RasterGraphContext context) => ExecuteBirdMaskPass(data, context));
         }
-        resourceData.cameraColor = passData.targetColor;
+    }
+
+    static void ExecuteBirdMaskPass(BirdMaskPassData data, RasterGraphContext context)
+    {
+        // Clear the render target to black
+        context.cmd.ClearRenderTarget(true, true, Color.clear);
+
+        // Draw the objects in the list
+        context.cmd.DrawRendererList(data.objectRendererList);
+    }
+
+    static void ExecutePhotographicPass(PhotographicPassData data, RasterGraphContext context)
+    {
+        // Clear the render target to black
+        context.cmd.ClearRenderTarget(true, true, Color.clear);
+
+        // Draw the objects in the list
+        context.cmd.DrawRendererList(data.objectRendererList);
     }
 }
-
-[Serializable] public class ShaderTagSettings
-{
-    [Flags]
-    public enum LightModeTags
-    {
-        None = 0,
-        SRPDefaultUnlit = 1 << 0,
-        UniversalForward = 1 << 1,
-        UniversalForwardOnly = 1 << 2,
-        LightweightForward = 1 << 3,
-        DepthNormals = 1 << 4,
-        DepthOnly = 1 << 5,
-        Standard = SRPDefaultUnlit | UniversalForward | UniversalForwardOnly | LightweightForward,
-        All = SRPDefaultUnlit | UniversalForward | UniversalForwardOnly | LightweightForward | DepthNormals | DepthOnly
-    }
-
-    public LightModeTags EnabledLightModeTags = LightModeTags.Standard;
-
-    public ShaderTagId[] GetShaderTagIds()
-    {
-        ShaderTagId[] tags = new ShaderTagId[6];
-        if (EnabledLightModeTags.HasFlag(LightModeTags.SRPDefaultUnlit))
-        {
-            tags[0] = new ShaderTagId("SRPDefaultUnlit");
-        }
-        if (EnabledLightModeTags.HasFlag(LightModeTags.UniversalForward))
-        {
-            tags[1] = new ShaderTagId("UniversalForward");
-        }
-        if (EnabledLightModeTags.HasFlag(LightModeTags.UniversalForwardOnly))
-        {
-            tags[2] = new ShaderTagId("UniversalForwardOnly");
-        }
-        if (EnabledLightModeTags.HasFlag(LightModeTags.LightweightForward))
-        {
-            tags[3] = new ShaderTagId("LightweightForward");
-        }
-        if (EnabledLightModeTags.HasFlag(LightModeTags.DepthNormals))
-        {
-            tags[4] = new ShaderTagId("DepthNormals");
-        }
-        if (EnabledLightModeTags.HasFlag(LightModeTags.DepthOnly))
-        {
-            tags[5] = new ShaderTagId("DepthOnly");
-        }
-        return tags;
-    }
-}
-
-
