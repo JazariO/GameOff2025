@@ -10,4 +10,5 @@ public class PlayerInputDataSO : ScriptableObject
 
     public Vector2 input_mouse_position;
     public bool input_mouse_button_left;
+    public bool input_mouse_button_right;
 }

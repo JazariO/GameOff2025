@@ -110,7 +110,7 @@ Material:
     - _AddPrecomputedVelocity: 0
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _BackgroundThermalValue: 0.52
+    - _BackgroundThermalValue: 0.692
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1

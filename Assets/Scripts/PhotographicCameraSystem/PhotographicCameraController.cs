@@ -13,6 +13,7 @@ public class PhotographicCameraController : MonoBehaviour
 
     [SerializeField] Transform photographicCameraPivotTransform;
     [SerializeField] Camera photographicCameraComponent;
+    [SerializeField] Material thermalCameraMaterial;
 
     [SerializeField] RenderTexture photographic_camera_viewport_rendertexture;
 
@@ -29,6 +30,14 @@ public class PhotographicCameraController : MonoBehaviour
         [Range(0,1)] public float zoom_fov_speed_scale_max;
     } [SerializeField] CameraControls cameraControls;
 
+    [Serializable] struct MaterialIDs
+    {
+        internal int useThermalID;
+    }
+    [SerializeField] MaterialIDs materialIDs;
+
+    private bool useThermal;
+
     private bool engaged;
     private bool is_zooming;
     
@@ -37,6 +46,11 @@ public class PhotographicCameraController : MonoBehaviour
     private float zoom;
     private float zoom_percent;
 
+
+    private void Awake()
+    {
+        materialIDs.useThermalID = Shader.PropertyToID("_UseThermal");
+    }
     private void OnEnable()
     {
         OnInspectDisengageBegin.RegisterListener(HandleInspectDisengage);
@@ -120,6 +134,12 @@ public class PhotographicCameraController : MonoBehaviour
                 byte[] photoBytes = texture2D.EncodeToPNG();
                 playerSaveDataSO.photo_taken_bytes = photoBytes;
                 OnPhotoTaken.Raise();
+            }
+
+            if (playerInputDataSO.input_mouse_button_right)
+            {
+                useThermal = useThermal ? false : true;
+                thermalCameraMaterial.SetFloat(materialIDs.useThermalID, useThermal ? 0 : 1);
             }
         }
     }
