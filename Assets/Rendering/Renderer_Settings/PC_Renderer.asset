@@ -71,3 +71,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   birdMaskMaterial: {fileID: 2100000, guid: 8684d80f631cc944d99eff00b522a04e, type: 2}
+  passEvent: 1000
