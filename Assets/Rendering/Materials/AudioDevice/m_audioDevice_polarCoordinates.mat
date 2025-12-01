@@ -61,6 +61,7 @@ Material:
     - _Amplitude: 0.252
     - _Angle: -7.73
     - _BorderThickness: 0.503
+    - _DEBUG: 0
     - _DeltaTime: 3.63
     - _DotDistance: 0.39
     - _DotSize: 0.951

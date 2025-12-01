@@ -3,8 +3,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerInputDataSO", menuName = "Player Input Data SO")]
 public class PlayerInputDataSO : ScriptableObject
 {
-    public Vector3 input_move;
+    public Vector2 input_move;
     public Vector2 input_look;
     public bool input_interact;
     public bool input_change_view;
+
+    public Vector2 input_mouse_position;
+    public bool input_mouse_button_left;
 }

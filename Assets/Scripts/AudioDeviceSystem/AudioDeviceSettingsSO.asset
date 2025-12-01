@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f277b52c9e43d48919243f37e2a5de, type: 3}
   m_Name: AudioDeviceSettingsSO
   m_EditorClassIdentifier: 
-  sensitivity: 0.125
+  sensitivity: 0.056
