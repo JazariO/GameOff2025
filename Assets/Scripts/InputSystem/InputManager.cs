@@ -50,6 +50,7 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
         playerInputDataSO.input_change_view = false;
         playerInputDataSO.input_mouse_position = Vector2.zero;
         playerInputDataSO.input_mouse_button_left = false;
+        playerInputDataSO.input_mouse_button_right = false;
 
         // Init action maps
         _playerMap = playerInput.actions.FindActionMap("Player", true);
@@ -124,6 +125,7 @@ public class InputManager : MonoBehaviour /*, ISaveableSettings*/
 
         playerInputDataSO.input_mouse_position = Mouse.current.position.ReadValue();
         playerInputDataSO.input_mouse_button_left = Mouse.current.leftButton.wasPressedThisFrame;
+        playerInputDataSO.input_mouse_button_right = Mouse.current.rightButton.wasPressedThisFrame;
 
         if(_pauseAction.WasPressedThisFrame() && !_pauseHandledThisFrame)
         {
