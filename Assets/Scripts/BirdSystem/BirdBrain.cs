@@ -7,7 +7,7 @@ public class BirdBrain : MonoBehaviour
     [SerializeField] Collider meshCollider;
     [SerializeField] Animator animator;
 
-    [SerializeField] BirdSO settings;
+    public BirdSO settings;
 
     public enum State
     {
